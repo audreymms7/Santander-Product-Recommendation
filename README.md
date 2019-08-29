@@ -12,6 +12,15 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 1. Categorical variables:
 2. Numeric variables:
 
+```{r}
+library(dplyr)
+library(tidyr)
+library(Amelia)
+library(ggplot2)
+santander <- read.csv('santander_train.csv')
+str(santander)
+```
+
 ```markdown
 Syntax highlighted code block
 
@@ -19,15 +28,7 @@ Syntax highlighted code block
 ## Header 2
 ### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and 
 
 
 
