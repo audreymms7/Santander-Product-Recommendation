@@ -9,6 +9,7 @@ The goal of this project is to take Santander Bank customer information between 
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows and use it for all further exercises.
 
 1. Categorical variables:
+2. Numeric variables:
 
 ```markdown
 Syntax highlighted code block
