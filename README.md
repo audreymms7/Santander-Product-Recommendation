@@ -10,21 +10,22 @@ The goal of this project is to take Santander Bank customer information between 
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows and use it for all further exercises.
 
 1. Categorical variables:
-> 
-sexo - gender
-ind_nuevo – new customer index 
-ind_empleado - customer employee status
-segmento - segmentation
-nomprov - Province 
-tipodom - Address
-cod_prov - Province code
-indext - Foreigner index
-indresi - Residence index
-indrel - primary customer at beginning but not end of month
-tiprel_1mes - Customer relation type at the beginning of the month
-ind_actividad_cliente - customer active index
-canal_entrada - Acquisition channel
-conyuemp - Spourse index
+Variable | Defination
+----------------------
+sexo | gender
+ind_nuevo | new customer index 
+ind_empleado | customer employee status
+segmento | segmentation
+nomprov | Province 
+tipodom | Address
+cod_prov | Province code
+indext | Foreigner index
+indresi | Residence index
+indrel | primary customer at beginning but not end of month
+tiprel_1mes | Customer relation type at the beginning of the month
+ind_actividad_cliente | customer active index
+canal_entrada | Acquisition channel
+conyuemp | Spourse index
 
 2. Numeric variables:
 
