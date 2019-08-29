@@ -2,6 +2,7 @@
 
 The goal of this project is to take Santander Bank customer information between January 2015 and May 2016, and to design a solution to predict which financial service products they would purchase in the next month. 
 
+![image Santander](v2-c3f8056348b2ce53c9455da5936b0679_1200x500.jpg)
 ### Data Wrangling
 
 #### Bring in the data
@@ -24,7 +25,9 @@ Syntax highlighted code block
 1. Numbered
 2. List
 
-**Bold** and _Italic_ and `Code` text```
+**Bold** and _Italic_ and `Code` text
 
 [Link](url) and 
-![Image Santander](v2-c3f8056348b2ce53c9455da5936b0679_1200x500.jpg)
+
+
+
