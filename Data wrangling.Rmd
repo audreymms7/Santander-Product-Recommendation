@@ -39,6 +39,12 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | conyuemp               	|  Spourse index                                          	|
 2. Numeric variables:
 
+| Variables                                                                   	|  Defination          	|
+|-----------------------------------------------------------------------------	|----------------------	|
+| age                                                                         	|  age                 	|
+| antiguedad – This was a categorical variable   that I changed into numeric  	|  seniority in months 	|
+| renta                                                                       	|  gross income        	|
+
 ```{r}
 library(dplyr)
 library(tidyr)
