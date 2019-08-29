@@ -1,12 +1,13 @@
-## Welcome to GitHub Pages
+## Santander Product Recommendation
 
-You can use the [editor on GitHub](https://github.com/audreymms7/Santander-Product-Recommendation/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+The goal of this project is to take Santander Bank customer information between January 2015 and May 2016, and to design a solution to predict which financial service products they would purchase in the next month. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Data Wrangling
 
-### Markdown
+#### Bring in the data
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows and use it for all further exercises.
+
 
 ```markdown
 Syntax highlighted code block
@@ -25,13 +26,3 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/audreymms7/Santander-Product-Recommendation/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
