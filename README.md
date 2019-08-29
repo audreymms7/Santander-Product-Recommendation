@@ -24,7 +24,7 @@ Syntax highlighted code block
 1. Numbered
 2. List
 
-**Bold** and _Italic_ and `Code` text
+**Bold** and _Italic_ and `Code` text```
 
-[Link](url) and ![Image](src)
-```
+[Link](url) and 
+![Image Santander](v2-c3f8056348b2ce53c9455da5936b0679_1200x500.jpg)
