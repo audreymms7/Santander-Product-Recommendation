@@ -8,7 +8,7 @@ Santander Product Recommendation
 
 The goal of this project is to take Santander Bank customer information between January 2015 and May 2016, and to design a solution to predict which financial service products they would purchase in the next month :rocket: .
 
-\#\#\# Data Wrangling
+Data Wrangling
 ---------------------
 
 #### Bring in the data
