@@ -71,12 +71,28 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | ind_nom_pens_ult1  	|  Pensions                	|
 | ind_recibo_ult1    	|  Direct Debit            	|
 
-
+#### Prepare R
 ``` r
 library(dplyr)
 library(tidyr)
 library(Amelia)
 library(ggplot2)
+
+my_theme <- theme_bw() +
+  theme(axis.title=element_text(size=24),
+        plot.title=element_text(size=36),
+        axis.text =element_text(size=16))
+
+my_theme_dark <- theme_dark() +
+  theme(axis.title=element_text(size=24),
+        plot.title=element_text(size=36),
+        axis.text =element_text(size=16))
+```
+#### First Glance
+``` r
+dta <- read.csv('santander_train.csv')
+str(dta)
+colSums(is.na(dta))
 ```
 
 Including Plots
