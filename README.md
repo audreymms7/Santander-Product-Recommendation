@@ -5,6 +5,7 @@ The goal of this project is to take Santander Bank customer information between 
 
 ### Data Wrangling
 ---------------------------------------
+
 #### Bring in the data
 
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises.
@@ -74,9 +75,9 @@ library(ggplot2)
 
 set.seed(1)
 my_theme <- theme_bw() +
-  theme(axis.title=element_text(size=24),
-        plot.title=element_text(size=36),
-        axis.text =element_text(size=16))
+  theme(axis.title=element_text(size=24,color="steelblue"),
+        plot.title=element_text(size=36,color="steelblue"),
+        axis.text =element_text(size=16,color="steelblue") )
 
 my_theme_dark <- theme_dark() +
   theme(axis.title=element_text(size=24),
@@ -190,8 +191,26 @@ colSums(dta=="")
 ```
 
 
-Exploratory Data Analysis
----------------------
+### Exploratory Data Analysis
+---------------------------------------
+#### Convert Data Type
+
+Convert age and seniority from factors to integers.
+```r
+dta$antiguedad=as.integer(dta$antiguedad)
+dta$age=as.integer(dta$age)
+```
+
+#### EDA on Age and Product Ownership
+Take a look at client age distibution: 
+```r
+ggplot(dta,aes(x=age))+
+geom_bar(aes(y = ..count..),position="dodge", fill="skyblue")+
+xlim(c(16,100))+
+my_theme+
+ggtitle("Age Distibution")
+```
+
 
 ```markdown
 Syntax highlighted code block
