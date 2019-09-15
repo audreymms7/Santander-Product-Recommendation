@@ -94,11 +94,17 @@ colSums(is.na(dta))
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
 #### Missing Value Imputation
+*`ind_nuevo`
+I want to start with `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
+``` r
 months.active <- dta[is.na(dta$ind_nuevo),] %>%
-  group_by(ncodpers) %>%
-  summarise(months.active=n())  %>%
-  select(months.active)
+group_by(ncodpers) %>%
+summarise(months.active=n())  %>%
+select(months.active)
 max(months.active)
+
+dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 1
+```
 
 Exploratory Data Analysis
 ---------------------
