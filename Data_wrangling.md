@@ -99,6 +99,9 @@ The next step is to decide how I can fill in the missing values or if I should j
 #### Missing Value Imputation
 
 
+Exploratory Data Analysis
+---------------------
+
 
 Including Plots
 ---------------
