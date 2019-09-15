@@ -13,7 +13,7 @@ Data Wrangling
 
 #### Bring in the data
 
-The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows and use it for all further exercises.
+The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows (400k from May and June, 100k from the rest months) and use it for all further exercises.
 
 1.  Categorical variables:
 
@@ -38,34 +38,8 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 
 ``` r
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(tidyr)
 library(Amelia)
-```
-
-    ## Loading required package: Rcpp
-
-    ## ## 
-    ## ## Amelia II: Multiple Imputation
-    ## ## (Version 1.7.5, built: 2018-05-07)
-    ## ## Copyright (C) 2005-2019 James Honaker, Gary King and Matthew Blackwell
-    ## ## Refer to http://gking.harvard.edu/amelia/ for more information
-    ## ##
-
-``` r
 library(ggplot2)
 ```
 
