@@ -94,7 +94,8 @@ colSums(is.na(dta))
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
 #### Missing Value Imputation
-*`ind_nuevo`
+1.`ind_nuevo`
+
 I want to start with `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
 ``` r
 months.active <- dta[is.na(dta$ind_nuevo),] %>%
@@ -105,6 +106,39 @@ max(months.active)
 
 dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 1
 ```
+
+2.`Renta`
+
+`Renta` is a variable with a lot of missing values. By checking its range, I realise there is a significant rich-poor gap among Santander customers.
+```r
+summary(dta$renta)
+```
+
+Instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
+```r
+new.incomes <- dta %>%
+select(nomprov) %>%
+merge(dta %>%
+group_by(nomprov) %>%
+dplyr::summarise(med.income=median(renta,na.rm=TRUE)),by="nomprov") %>%
+select(nomprov,med.income) %>%
+arrange(nomprov)
+dta <- arrange(dta,nomprov)
+dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
+dta$renta[is.na(dta$renta)] <- median(dta$renta,na.rm=TRUE)
+```
+
+3. `indrel`
+
+`Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
+```r
+table(dta$indrel)
+dta$indrel[is.na(dta$indrel)] <- 1 
+```
+4.
+
+
+
 
 Exploratory Data Analysis
 ---------------------
