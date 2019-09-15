@@ -135,6 +135,7 @@ dta %>%
   ylim(c(60000,180000)) +
   ggtitle("Income Distribution by Province")
 ```
+![image income_by_prov](Rplot.png)
 
 Instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
 ```r
