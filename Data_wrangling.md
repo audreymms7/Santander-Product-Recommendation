@@ -94,6 +94,11 @@ dta <- read.csv('santander_train.csv')
 str(dta)
 colSums(is.na(dta))
 ```
+The next step is to decide how I can fill in the missing values or if I should just drop them.
+
+#### Missing Value Imputation
+
+
 
 Including Plots
 ---------------
