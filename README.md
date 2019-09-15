@@ -7,7 +7,7 @@ The goal of this project is to take Santander Bank customer information between 
 ---------------------------------------
 #### Bring in the data
 
-The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 500k rows and use it for all further exercises.
+The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises.
 
 1. Categorical variables:
 
@@ -72,6 +72,7 @@ library(tidyr)
 library(Amelia)
 library(ggplot2)
 
+set.seed(1)
 my_theme <- theme_bw() +
   theme(axis.title=element_text(size=24),
         plot.title=element_text(size=36),
@@ -88,10 +89,16 @@ dta <- read.csv('santander_train.csv')
 str(dta)
 colSums(is.na(dta))
 ```
+`Renta` (gross income) has most number of missing values, 205,158 in total, followed by `cod_prov` with 6,898 missing values. `Ind_nuevo`, `indrel`, `tipodom` and `ind_actividad_cliente` all have 2,040 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,152 missing values.
+
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
 #### Missing Value Imputation
-
+months.active <- dta[is.na(dta$ind_nuevo),] %>%
+  group_by(ncodpers) %>%
+  summarise(months.active=n())  %>%
+  select(months.active)
+max(months.active)
 
 Exploratory Data Analysis
 ---------------------
