@@ -94,7 +94,6 @@ colSums(is.na(dta))
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
 #### Missing Value Imputation
-1.`ind_nuevo`
 
 I want to start with `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
 ``` r
@@ -107,11 +106,34 @@ max(months.active)
 dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 1
 ```
 
-2.`Renta`
 
 `Renta` is a variable with a lot of missing values. By checking its range, I realise there is a significant rich-poor gap among Santander customers.
 ```r
 summary(dta$renta)
+```
+Look at the distribution of `renta` by province: 
+```r
+dta %>%
+  filter(!is.na(renta)) %>%
+  group_by(nomprov) %>%
+  summarise(med.income = median(renta)) %>%
+  arrange(med.income) %>%
+  mutate(prov=factor(nomprov,levels=nomprov)) %>%
+  ggplot(aes(x=prov,y=med.income)) +
+  geom_point(color="steelblue") +
+  guides(color=FALSE) +
+  xlab("Province") +
+  ylab("Median Income") +
+  my_theme +
+  theme(axis.text.x=element_blank(), axis.ticks = element_blank()) +
+  geom_text(aes(x=prov,y=med.income,label=prov),angle=90,hjust=-.25)+
+  theme(
+        panel.grid =element_blank(),
+        axis.title =element_text(color="steelblue"),
+        axis.text  =element_text(color="steelblue"),
+        plot.title =element_text(color="steelblue")) +
+  ylim(c(60000,180000)) +
+  ggtitle("Income Distribution by Province")
 ```
 
 Instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
@@ -128,16 +150,43 @@ dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
 dta$renta[is.na(dta$renta)] <- median(dta$renta,na.rm=TRUE)
 ```
 
-3. `indrel`
 
 `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
 ```r
 table(dta$indrel)
 dta$indrel[is.na(dta$indrel)] <- 1 
 ```
-4.
 
+`Ind_actividad_cliente`, which indicates if clients are active or not. Choose to replace the missing values with the more frequent status.
+```r
+table(dta$ind_actividad_cliente)
+dta$ind_actividad_cliente[is.na(dta$ind_actividad_cliente)] <- median(dta$ind_actividad_cliente,na.rm=TRUE)
+```
+ 
+I decide to drop variable cod_prov, since province information is already saved in nomprov. 
+```r
+dta <- dta %>% select (-X, -cod_prov)
+```
 
+Address type variable `tipodom` has a few missing values too. After checking data distibution, all observatons have a address type of "1" - primary address. Choose to drop the variable.
+```r
+table(dta$tipodom)
+dta <- dta %>% select (-tipodom)
+```
+ 
+Lastly, for the two product variables, replace the missing values with the more frequent status, which is 0.
+```r
+table(dta$ind_nomina_ult1)
+dta$ind_nomina_ult1[is.na(dta$ind_nomina_ult1)] <- median(dta$ind_nomina_ult1,na.rm=TRUE)
+table(dta$ind_nom_pens_ult1)
+dta$ind_nom_pens_ult1[is.na(dta$ind_nom_pens_ult1)] <- median(dta$ind_nom_pens_ult1,na.rm=TRUE)
+```
+Now I am finished handling missing values.
+
+#### Empty Value Imputation
+```r
+colSums(dta=="")
+```
 
 
 Exploratory Data Analysis
