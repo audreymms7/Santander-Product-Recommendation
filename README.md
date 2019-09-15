@@ -210,7 +210,7 @@ xlim(c(16,100))+
 my_theme+
 ggtitle("Age Distibution")
 ```
-Convert age into brackets: "0~15","16~25","26~35","36~45","46~55","56~65","65+"
+Convert age into brackets: "0 to 15","16 to 25","26 to 35","36 to 45","46 to 55","56 to 65","65+"
 ```r
 dta$age_group[dta$age > 65] <- "65+"
 dta$age_group[dta$age > 55 & dta$age <= 65] <- "56~65"
