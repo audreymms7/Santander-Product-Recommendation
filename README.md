@@ -210,6 +210,7 @@ xlim(c(16,100))+
 my_theme+
 ggtitle("Age Distibution")
 ```
+![image age](age distribution.png)
 
 
 ```markdown
