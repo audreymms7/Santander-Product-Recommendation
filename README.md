@@ -202,7 +202,7 @@ dta$age=as.integer(dta$age)
 ```
 
 #### EDA on Age and Product Ownership
-Take a look at client age distibution: 
+Take a look at client age distibution: Apparently, Santander has much more client in their 20's and 40's during this period.
 ```r
 ggplot(dta,aes(x=age))+
 geom_bar(aes(y = ..count..),position="dodge", fill="skyblue")+
@@ -210,8 +210,17 @@ xlim(c(16,100))+
 my_theme+
 ggtitle("Age Distibution")
 ```
-
-
+Convert age into brackets: "0~15","16~25","26~35","36~45","46~55","56~65","65+"
+```r
+dta$age_group[dta$age > 65] <- "65+"
+dta$age_group[dta$age > 55 & dta$age <= 65] <- "56~65"
+dta$age_group[dta$age > 45 & dta$age <= 55] <- "46~55"
+dta$age_group[dta$age > 35 & dta$age <= 45] <- "36~45"
+dta$age_group[dta$age > 25 & dta$age <= 35] <- "26~35"
+dta$age_group[dta$age > 15 & dta$age <= 25] <- "16~25"
+dta$age_group[dta$age <= 15] <- "0~15"
+```
+#### EDA on Income, Segment and Product Ownership
 
 ```markdown
 Syntax highlighted code block
