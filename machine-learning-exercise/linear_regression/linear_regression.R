@@ -130,12 +130,31 @@ coef(summary(sat.voting.mod))
 ##   per capita (energy) from the percentage of residents living in
 ##   metropolitan areas (metro). Be sure to
 ##   1. Examine/plot the data before fitting the model
+sts.metro.eg <- subset(states.data, select = c("metro", "energy"))
+str(sts.metro.eg)
+cor(na.omit(sts.metro.eg))
+plot(sts.metro.eg)
+
+
 ##   2. Print and interpret the model `summary'
+energy_metro <- lm(energy ~ metro, data = na.omit(states.data))
+summary(energy_metro)
+#this model suggests energy consumption is negatively related to population which is against common sense. Note that model 's adjusted R2 is only 0.07
+
 ##   3. `plot' the model to look for deviations from modeling assumptions
+plot(energy_metro, 1)
+plot(energy_metro, 2)
+plot(energy_metro, 3)
+#from the plot we can see there is a non-constant variance of residual errors, residuals seem to have a pattern
 
 ##   Select one or more additional predictors to add to your model and
 ##   repeat steps 1-3. Is this model significantly better than the model
 ##   with /metro/ as the only predictor?
+energy_2 <- lm(energy ~ metro + green + waste, data = na.omit(states.data))
+summary(energy_2)
+
+anova(energy_metro,energy_2)
+#Anova test suggests that by adding another two variable (waste and green), the second model is significantly better than the first one
 
 ## Interactions and factors
 ## ══════════════════════════
@@ -200,6 +219,13 @@ coef(summary(lm(csat ~ C(region, contr.helmert),
 
 ##   1. Add on to the regression equation that you created in exercise 1 by
 ##      generating an interaction term and testing the interaction.
+energy_3 <- lm(energy ~ metro + green + waste + metro*waste, data = na.omit(states.data))
+summary(energy_3)
+anova(energy_2, energy_3)
+
 
 ##   2. Try adding region to the model. Are there significant differences
-##      across the four regions?
+##      across the four regions? Not really
+states.data$region <- factor(states.data$region)
+energy_4 <- lm(energy ~ metro + green + waste + region, data = na.omit(states.data))
+summary(energy_4)
