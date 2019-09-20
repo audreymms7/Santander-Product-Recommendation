@@ -24,7 +24,7 @@
 
 ##   Load the National Health Interview Survey data:
 
-NH11 <- readRDS("dataSets/NatHealth2011.rds")
+NH11 <- readRDS("machine-learning-exercise/logistic_regression/dataSets/NatHealth2011.rds")
 labs <- attributes(NH11)$labels
 
 ##   [CDC website] http://www.cdc.gov/nchs/nhis.htm
@@ -89,7 +89,7 @@ cbind(predDat, predict(hyp.out, type = "response",
 
 ##   Instead of doing all this ourselves, we can use the effects package to
 ##   compute quantities of interest for us (cf. the Zelig package).
-
+install.packages("effects")
 library(effects)
 plot(allEffects(hyp.out))
 
@@ -100,8 +100,29 @@ plot(allEffects(hyp.out))
 
 ##   1. Use glm to conduct a logistic regression to predict ever worked
 ##      (everwrk) using age (age_p) and marital status (r_maritl).
+str(NH11$everwrk)
+str(NH11)
+colSums(is.na(NH11)|NH11=="")
+summary(NH11$everwrk)
+summary(NH11$r_maritl)
+
+NH11$everwrk <- factor(NH11$everwrk, levels = c("1 Yes", "2 No"))
+
+everwork <- glm(everwrk~age_p+r_maritl,
+               data=NH11, family="binomial")
+summary(everwork)
 ##   2. Predict the probability of working for each level of marital
 ##      status.
+
+pred_work <- with(NH11,
+                expand.grid(age_p = mean(age_p),
+                            r_maritl = c("1 Married - spouse in household", "2 Married - spouse not in household", "4 Widowed", "5 Divorced", "6 Separated", "7 Never married", "8 Living with partner","9 Unknown marital status" ) ))
+             
+# predict hypertension at those levels
+predicted <- cbind(pred_work, predict(everwork, type = "response",
+                       se.fit = TRUE, interval="confidence",
+                       newdata = pred_work))
+
 
 ##   Note that the data is not perfectly clean and ready to be modeled. You
 ##   will need to clean up at least some of the variables before fitting
