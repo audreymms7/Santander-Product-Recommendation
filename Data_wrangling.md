@@ -4,12 +4,11 @@ Santander Product Recommendation
 
 The goal of this project is to take Santander Bank customer information between January 2015 and May 2016, and to design a solution to predict which financial service products they would purchase in the next month :rocket: . 
 
-### Data Wrangling
 ---------------------------------------
 
 #### Bring in the data
 
-The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises.
+The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
 
 1. Categorical variables:
 
@@ -67,14 +66,31 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | ind_nom_pens_ult1  	|  Pensions                	|
 | ind_recibo_ult1    	|  Direct Debit            	|
 
+#### Prepare R
+``` r
+library(dplyr)
+library(tidyr)
+library(Amelia)
+library(ggplot2)
 
+set.seed(1)
+my_theme <- theme_bw() +
+  theme(axis.title=element_text(size=24,color="steelblue"),
+        plot.title=element_text(size=36,color="steelblue"),
+        axis.text =element_text(size=16,color="steelblue") )
+
+my_theme_dark <- theme_dark() +
+  theme(axis.title=element_text(size=24),
+        plot.title=element_text(size=36),
+        axis.text =element_text(size=16))
+```
 #### First Glance
 ``` r
-dta <- read.csv('santander_train.csv')
+dta <- read.csv('Santander_Train2.csv')
 str(dta)
 colSums(is.na(dta))
 ```
-`Renta` (gross income) has most number of missing values, 205,158 in total, followed by `cod_prov` with 6,898 missing values. `Ind_nuevo`, `indrel`, `tipodom` and `ind_actividad_cliente` all have 2,040 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,152 missing values.
+`Renta` (gross income) has most number of missing values, 204,118 in total, followed by `cod_prov` with 7,474 missing values. `Age`, `Ind_nuevo`, `indrel`, `tipodom` and `ind_actividad_cliente` all have 2,407 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,902 missing values.
 
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
