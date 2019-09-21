@@ -38,7 +38,7 @@ wssplot(dta)
 #   * How many clusters does this method suggest?
 #3
 #   * Why does this method work? What's the intuition behind it?
-#
+#we want WSS to be as small as possible.After 3 clusters, adding another cluster doesn’t improve total WSS much anymore.
 #   * Look at the code for wssplot() and figure out how it works
 
 # Method 2: Use the NbClust library, which runs many experiments
