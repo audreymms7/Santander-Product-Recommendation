@@ -97,7 +97,17 @@ The next step is to decide how I can fill in the missing values or if I should j
 
 #### Missing Value Imputation
 
-I want to start with `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
+I want to start with checking the distribution of `age`. Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+![image age](age.png)
+```r
+ggplot(dta,aes(x=age))+
+geom_bar(aes(y = ..count..),position="dodge", fill="skyblue")+
+xlim(c(16,100))+
+my_theme+
+ggtitle("Age Distibution")
+```
+
+Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
 ``` r
 months.active <- dta[is.na(dta$ind_nuevo),] %>%
 group_by(ncodpers) %>%
