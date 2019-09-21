@@ -97,8 +97,10 @@ The next step is to decide how I can fill in the missing values or if I should j
 
 ### Missing Value Imputation
 
-I want to start with checking the distribution of `age`. Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+I want to start with checking the distribution of `age`.
 ![image age](age.png)
+Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+
 ```r
 ggplot(dta,aes(x=age))+
 geom_bar(aes(y = ..count..),position="dodge", fill="skyblue")+
@@ -106,6 +108,18 @@ xlim(c(16,100))+
 my_theme+
 ggtitle("Age Distibution")
 ```
+```r
+dta %>%
+filter(segmento!="")%>%
+  ggplot(aes(segmento,age)) +                                                  
+  geom_boxplot(aes(fill=factor(segmento)),alpha=0.5) +
+  my_theme+
+  ggtitle("Age distribution by client segment")
+```
+![image age by segment](age_by_seg.png)
+It can be clearly seen the median age varies among different segments. Rather than just imputing missing age values by the overall average age, I will use average age for each segment instead.
+
+
 
 Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
 ``` r
