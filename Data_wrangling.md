@@ -7,7 +7,7 @@ The goal of this project is to take Santander Bank customer information between 
 
 ---------------------------------------
 
-#### Bring in the data
+### Bring in the data
 
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
 
@@ -67,7 +67,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | ind_nom_pens_ult1  	|  Pensions                	|
 | ind_recibo_ult1    	|  Direct Debit            	|
 
-#### Prepare R
+### Prepare R
 ``` r
 library(dplyr)
 library(tidyr)
@@ -85,7 +85,7 @@ my_theme_dark <- theme_dark() +
         plot.title=element_text(size=36),
         axis.text =element_text(size=16))
 ```
-#### First Glance
+### First Glance
 ``` r
 dta <- read.csv('Santander_Train2.csv')
 str(dta)
@@ -95,7 +95,7 @@ colSums(is.na(dta))
 
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
-#### Missing Value Imputation
+### Missing Value Imputation
 
 I want to start with checking the distribution of `age`. Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age](age.png)
@@ -196,7 +196,7 @@ dta$ind_nom_pens_ult1[is.na(dta$ind_nom_pens_ult1)] <- median(dta$ind_nom_pens_u
 ```
 Now I am finished handling missing values.
 
-#### Empty Value Imputation
+### Empty Value Imputation
 ```r
 colSums(dta=="")
 ```
