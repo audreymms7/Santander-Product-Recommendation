@@ -73,6 +73,7 @@ library(dplyr)
 library(tidyr)
 library(Amelia)
 library(ggplot2)
+library(lubridate)
 
 set.seed(1)
 my_theme <- theme_bw() +
@@ -87,7 +88,7 @@ my_theme_dark <- theme_dark() +
 ```
 ### First Glance
 ``` r
-dta <- read.csv('Santander_Train2.csv')
+dta <- read.csv('Santander_Train2.csv', fileEncoding="UTF-8-BOM")
 str(dta)
 colSums(is.na(dta))
 ```
@@ -139,7 +140,21 @@ ggplot(dta, aes(x=antiguedad)) +
   xlim(c(-1,256))+
   ggtitle("Seniority distribution with mean and median ") +
   my_theme 
+
+dta$fecha_dato <- mdy_hms(dta$fecha_dato)
+
+elapsed.months <- function(end_date, start_date) {
+  12 * (year(end_date) - year(start_date)) + (month(end_date) - month(start_date))
+}
+recalculated.antiguedad <- elapsed.months(df$fecha_dato,df$fecha_alta)
+
+
+df$antiguedad[!is.na(df$fecha_alta)] <- recalculated.antiguedad[!is.na(df$fecha_alta)]
+
+
 ```
+
+
 
 Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 3 months history. Looks like they are all new clients.
 ``` r
