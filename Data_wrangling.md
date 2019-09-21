@@ -35,7 +35,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | Variables                                                                   	|  Defination          	|
 |-----------------------------------------------------------------------------	|----------------------	|
 | age                                                                         	|  age                 	|
-| antiguedad – This was a categorical variable   that I changed into numeric  	|  seniority in months 	|
+| antiguedad                                                                  	|  seniority in months 	|
 | renta                                                                       	|  gross income        	|
 
 3. Target Variables: 
@@ -117,11 +117,31 @@ filter(segmento!="")%>%
   ggtitle("Age distribution by client segment")
 ```
 ![image age by segment](age_by_seg.png)
-It can be clearly seen the median age varies among different segments. Rather than just imputing missing age values by the overall average age, I will use average age for each segment instead.
+It can be clearly seen the median age varies among different segments. Rather than just imputing missing age values by the overall average age, I decide to use median age for each segment instead.
+```r
+new.age <- dta %>%
+select(segmento) %>%
+merge(dta %>%
+group_by(segmento) %>%
+dplyr::summarise(med.age=median(age,na.rm=TRUE)),by="segmento") %>%
+select(segmento,med.age) %>%
+arrange(segmento)
+dta <- arrange(dta,segmento)
+dta$age[is.na(dta$age)] <- new.age$med.age[is.na(dta$age)]
+```
+`antiguedad` contains customer senoirty in months.Weirdly, there is a large amount of negative values in the dataset. When I look at the distibution of only positive values, it's right skewed. I decide to recalulate the seniority for each client, using `fecha_alta`.
+```r
+summary(dta$antiguedad)
+ggplot(dta, aes(x=antiguedad)) +                       
+  geom_histogram(fill="skyblue", alpha=0.5) +
+  geom_vline(aes(xintercept=median(antiguedad, na.rm=T)), colour='steelblue', linetype='dashed', size=2) +
+  geom_vline(aes(xintercept=mean(antiguedad, na.rm=T)), colour='red', linetype='dashed', size=2) +
+  xlim(c(-1,256))+
+  ggtitle("Seniority distribution with mean and median ") +
+  my_theme 
+```
 
-
-
-Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 4 months history. Looks like they are all new clients.
+Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 3 months history. Looks like they are all new clients.
 ``` r
 months.active <- dta[is.na(dta$ind_nuevo),] %>%
 group_by(ncodpers) %>%
@@ -163,7 +183,7 @@ dta %>%
 ```
 ![image income_by_prov](Rplot.png)
 
-Instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
+Again, instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
 ```r
 new.incomes <- dta %>%
 select(nomprov) %>%
@@ -174,7 +194,7 @@ select(nomprov,med.income) %>%
 arrange(nomprov)
 dta <- arrange(dta,nomprov)
 dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
-dta$renta[is.na(dta$renta)] <- median(dta$renta,na.rm=TRUE)
+
 ```
 
 
@@ -192,7 +212,7 @@ dta$ind_actividad_cliente[is.na(dta$ind_actividad_cliente)] <- median(dta$ind_ac
  
 I decide to drop variable cod_prov, since province information is already saved in nomprov. 
 ```r
-dta <- dta %>% select (-X, -cod_prov)
+dta <- dta %>% select (-cod_prov)
 ```
 
 Address type variable `tipodom` has a few missing values too. After checking data distibution, all observatons have a address type of "1" - primary address. Choose to drop the variable.
@@ -214,3 +234,4 @@ Now I am finished handling missing values.
 ```r
 colSums(dta=="")
 ```
+After examining the data, I find out there’s also abundance of character variables that contain empty values.I decide to fill the empty strings either with the most common value or create an unknown category based on the defination of the variable and my judgement.
