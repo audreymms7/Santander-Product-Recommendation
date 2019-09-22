@@ -5,6 +5,9 @@ library(tidyr)
 library(Amelia)
 library(ggplot2)
 library(lubridate)
+install.packages("reshape2")
+library(reshape2)
+
 
 set.seed(1)
 my_theme <- theme_bw() +
@@ -174,3 +177,25 @@ dta$age_group[dta$age > 35 & dta$age <= 45] <- "36~45"
 dta$age_group[dta$age > 25 & dta$age <= 35] <- "26~35"
 dta$age_group[dta$age > 15 & dta$age <= 25] <- "16~25"
 dta$age_group[dta$age <= 15] <- "0~15"
+
+levels(dta$segmento)[levels(dta$segmento)=="02 - PARTICULARES"] <- "Regular"
+levels(dta$segmento)[levels(dta$segmento)=="01 - TOP"] <- "VIP"
+levels(dta$segmento)[levels(dta$segmento)=="03 - UNIVERSITARIO"] <- "Student"
+# Age & Income
+# Product vs Age/Segment
+str(dta)
+prod_age_seg <- dta %>% 
+                select(20,21:45)
+str(prod_age)
+prod_age_seg2 <- prod_age_seg %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)
+
+ggplot(prod_age_seg2, aes(x=age_group, fill=Prod))+
+  geom_bar()+
+  facet_wrap(.~segmento)+
+  my_theme+
+  ggtitle("Product ownership across Age and Segment")
+
+#Foreign workers 26-45 yrs old 
+mosaicplot(~ indext + age_group, data=dta, main='Foreign/Domestic by age group', shade=TRUE)
+
+
