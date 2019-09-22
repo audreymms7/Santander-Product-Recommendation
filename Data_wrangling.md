@@ -92,7 +92,7 @@ dta <- read.csv('Santander_Train2.csv', fileEncoding="UTF-8-BOM")
 str(dta)
 colSums(is.na(dta))
 ```
-`Renta` (gross income) has most number of missing values, 204,118 in total, followed by `cod_prov` with 7,474 missing values. `Age`, `Ind_nuevo`, `indrel`, `tipodom` and `ind_actividad_cliente` all have 2,407 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,902 missing values.
+`Renta` (gross income) has most number of missing values, 204,118 in total, followed by `cod_prov` with 7,474 missing values. `Age`, `fecha_alta`, `Ind_nuevo`, `indrel`, `antiguedad`, `tipodom` and `ind_actividad_cliente` all have 2,407 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,902 missing values.
 
 The next step is to decide how I can fill in the missing values or if I should just drop them.
 
@@ -130,7 +130,9 @@ arrange(segmento)
 dta <- arrange(dta,segmento)
 dta$age[is.na(dta$age)] <- new.age$med.age[is.na(dta$age)]
 ```
-`antiguedad` contains customer senoirty in months.Weirdly, there is a large amount of negative values in the dataset. When I look at the distibution of only positive values, it's right skewed. I decide to recalulate the seniority for each client, using `fecha_alta`.
+`antiguedad` contains customer senoirty in months.Weirdly, there is a large amount of negative values in the dataset. When I look at the distibution of only positive values, it's right skewed. Most client has a client-joined-date so I decide to recalulate the seniority for each client, using `fecha_alta`.
+![image age by segment](seniority.png)
+
 ```r
 summary(dta$antiguedad)
 ggplot(dta, aes(x=antiguedad)) +                       
@@ -140,31 +142,36 @@ ggplot(dta, aes(x=antiguedad)) +
   xlim(c(-1,256))+
   ggtitle("Seniority distribution with mean and median ") +
   my_theme 
+  
+head(dta)
+dta$fecha_dato <- as.Date(dta$fecha_dato)
 
-dta$fecha_dato <- mdy_hms(dta$fecha_dato)
+dta$fecha_alta <- as.Date(dta$fecha_alta)
+
+dta$fecha_alta[is.na(dta$fecha_alta)] <- median(dta$fecha_alta,na.rm=TRUE)
+
 
 elapsed.months <- function(end_date, start_date) {
   12 * (year(end_date) - year(start_date)) + (month(end_date) - month(start_date))
 }
-recalculated.antiguedad <- elapsed.months(df$fecha_dato,df$fecha_alta)
+recalculated.antiguedad <- elapsed.months(dta$fecha_dato,dta$fecha_alta)
 
 
-df$antiguedad[!is.na(df$fecha_alta)] <- recalculated.antiguedad[!is.na(df$fecha_alta)]
+dta$antiguedad <- recalculated.antiguedad
 
 
 ```
 
 
 
-Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month of history these clients have in the dataset, they all have 3 months history. Looks like they are all new clients.
+Moving on to `ind_nuevo`, which indicates if  the client is new or not. When I look at how many month seniority these clients have, they all have over 3 year's seniority. Looks like they are all old clients.
 ``` r
-months.active <- dta[is.na(dta$ind_nuevo),] %>%
-group_by(ncodpers) %>%
-summarise(months.active=n())  %>%
-select(months.active)
-max(months.active)
+ant <- dta%>% 
+filter (is.na(ind_nuevo)) %>%
+select(antiguedad)
+summary(ant)
 
-dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 1
+dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 0
 ```
 
 
@@ -200,15 +207,27 @@ dta %>%
 
 Again, instead of filling in missing values with mean or median, I think it’s more accurate to break it down by province and use the median of each province.
 ```r
-new.incomes <- dta %>%
-select(nomprov) %>%
-merge(dta %>%
-group_by(nomprov) %>%
-dplyr::summarise(med.income=median(renta,na.rm=TRUE)),by="nomprov") %>%
-select(nomprov,med.income) %>%
-arrange(nomprov)
-dta <- arrange(dta,nomprov)
-dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
+dta %>%
+  filter(!is.na(renta)) %>%
+  group_by(nomprov) %>%
+  summarise(med.income = median(renta)) %>%
+  arrange(med.income) %>%
+  mutate(prov=factor(nomprov,levels=nomprov)) %>%
+  ggplot(aes(x=prov,y=med.income)) +
+  geom_point(color="steelblue") +
+  guides(color=FALSE) +
+  xlab("Province") +
+  ylab("Median Income") +
+  my_theme +
+  theme(axis.text.x=element_blank(), axis.ticks = element_blank()) +
+  geom_text(aes(x=prov,y=med.income,label=prov),angle=90,hjust=-.25)+
+  theme(
+        panel.grid =element_blank(),
+        axis.title =element_text(color="steelblue"),
+        axis.text  =element_text(color="steelblue"),
+        plot.title =element_text(color="steelblue")) +
+  ylim(c(60000,180000)) +
+  ggtitle("Income Distribution by Province")
 
 ```
 
@@ -243,10 +262,36 @@ dta$ind_nomina_ult1[is.na(dta$ind_nomina_ult1)] <- median(dta$ind_nomina_ult1,na
 table(dta$ind_nom_pens_ult1)
 dta$ind_nom_pens_ult1[is.na(dta$ind_nom_pens_ult1)] <- median(dta$ind_nom_pens_ult1,na.rm=TRUE)
 ```
-Now I am finished handling missing values.
 
 ### Empty Value Imputation
 ```r
 colSums(dta=="")
 ```
-After examining the data, I find out there’s also abundance of character variables that contain empty values.I decide to fill the empty strings either with the most common value or create an unknown category based on the defination of the variable and my judgement.
+After examining the data, I find out there’s also abundance of character variables that contain empty values and inconsistent formats.I decide to correct the formats, and either fill the empty strings with the most common value or remove the variable, based on my judgement.
+Now I am finished cleaning all the data. The cleaned dataset will be uploaded to github page.
+```r
+
+summary(dta$segmento) 
+
+dta$indfall[dta$indfall==""]                 <- "N"
+dta$tiprel_1mes[dta$tiprel_1mes==""]         <- "I"
+dta$indrel_1mes[dta$indrel_1mes==""]         <- "1"
+dta$indrel_1mes[dta$indrel_1mes=="1.0"]        <- "1"
+dta$indrel_1mes[dta$indrel_1mes=="2.0"]        <- "2"
+dta$indrel_1mes[dta$indrel_1mes=="3.0"]        <- "3"
+dta$indrel_1mes[dta$indrel_1mes=="4.0"]        <- "4"
+
+dta$pais_residencia[dta$pais_residencia==""] <- "ES"
+dta$sexo[dta$sexo==""]                       <- "V"
+dta <- dta %>% select (-ult_fec_cli_1t)
+dta$ind_empleado[dta$ind_empleado==""]       <- "N"
+dta$indext[dta$indext==""]                   <- "N"
+dta$indresi[dta$indresi==""]                 <- "S"
+dta <- dta %>% select (-conyuemp)
+dta$segmento[dta$segmento==""]               <- "02 - PARTICULARES"
+
+str(dta)
+
+
+write.csv(dta, "Santander_cleaned.csv",row.names = FALSE)
+```
