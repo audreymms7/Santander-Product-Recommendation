@@ -103,27 +103,16 @@ dta %>%
   ylim(c(60000,180000)) +
   ggtitle("Income Distribution by Province")
 
-dta %>%
-  filter(!is.na(renta)) %>%
-  group_by(nomprov) %>%
-  summarise(med.income = median(renta)) %>%
-  arrange(med.income) %>%
-  mutate(prov=factor(nomprov,levels=nomprov)) %>%
-  ggplot(aes(x=prov,y=med.income)) +
-  geom_point(color="steelblue") +
-  guides(color=FALSE) +
-  xlab("Province") +
-  ylab("Median Income") +
-  my_theme +
-  theme(axis.text.x=element_blank(), axis.ticks = element_blank()) +
-  geom_text(aes(x=prov,y=med.income,label=prov),angle=90,hjust=-.25)+
-  theme(
-    panel.grid =element_blank(),
-    axis.title =element_text(color="steelblue"),
-    axis.text  =element_text(color="steelblue"),
-    plot.title =element_text(color="steelblue")) +
-  ylim(c(60000,180000)) +
-  ggtitle("Income Distribution by Province")
+new.incomes <- dta %>%
+  select(nomprov) %>%
+  merge(dta %>%
+          group_by(nomprov) %>%
+          dplyr::summarise(med.income=median(renta,na.rm=TRUE)),by="nomprov") %>%
+  select(nomprov,med.income) %>%
+  arrange(nomprov)
+dta <- arrange(dta,nomprov)
+dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
+dta$renta[is.na(dta$renta)] <- median(dta$renta,na.rm=TRUE)
 
 #  Indrel & other variables
 table(dta$indrel)
