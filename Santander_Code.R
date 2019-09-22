@@ -154,3 +154,23 @@ str(dta)
 
 ## Export Clean Data
 write.csv(dta, "Santander_cleaned.csv",row.names = FALSE)
+
+## EDA
+str(dta)
+# Convert Data Type
+
+dta$indrel <- as.factor(dta$indrel)
+dta$ind_nuevo <- as.factor(dta$ind_nuevo)
+dta$canal_entrada <- as.factor(dta$canal_entrada)
+dta$ind_actividad_cliente <- as.factor(dta$ind_actividad_cliente)
+dta$ind_nomina_ult1 <- as.integer(dta$ind_nomina_ult1)
+dta$ind_nom_pens_ult1 <- as.integer(dta$ind_nom_pens_ult1)
+
+# Convert age into brackets: "0 to 15","16 to 25","26 to 35","36 to 45","46 to 55","56 to 65","65+"
+dta$age_group[dta$age > 65] <- "65+"
+dta$age_group[dta$age > 55 & dta$age <= 65] <- "56~65"
+dta$age_group[dta$age > 45 & dta$age <= 55] <- "46~55"
+dta$age_group[dta$age > 35 & dta$age <= 45] <- "36~45"
+dta$age_group[dta$age > 25 & dta$age <= 35] <- "26~35"
+dta$age_group[dta$age > 15 & dta$age <= 25] <- "16~25"
+dta$age_group[dta$age <= 15] <- "0~15"
