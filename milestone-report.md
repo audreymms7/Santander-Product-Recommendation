@@ -21,7 +21,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 * Age & Segment
 
 ![image age by segment](age_by_seg.png)
-
+![image age by segment](prod_age_seg.png)
 * Foreigner 
 
 
