@@ -141,9 +141,7 @@ dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 0
 
 
 `Renta` is a variable with a lot of missing values. By checking its range, I realise there is a significant rich-poor gap among Santander customers.
-```r
-summary(dta$renta)
-```
+
 Look at the distribution of `renta` by province: 
 
 ![image income_by_prov](Rplot.png)
@@ -169,19 +167,11 @@ table(dta$indrel)
 dta$indrel[is.na(dta$indrel)] <- 1 
 ```
 
-`Ind_actividad_cliente`, which indicates if clients are active or not. Choose to replace the missing values with the more frequent status.
-```r
-table(dta$ind_actividad_cliente)
-dta$ind_actividad_cliente[is.na(dta$ind_actividad_cliente)] <- median(dta$ind_actividad_cliente,na.rm=TRUE)
-```
+`Ind_actividad_cliente`, which indicates if clients are active or not. Again, I choose to replace the missing values with the more frequent status.
  
 I decide to drop variable cod_prov, since province information is already saved in nomprov. 
 
 Address type variable `tipodom` has a few missing values too. After checking data distibution, all observatons have a address type of "1" - primary address. Choose to drop the variable.
-```r
-table(dta$tipodom)
-dta <- dta %>% select (-tipodom)
-```
  
 Lastly, for the two product variables, replace the missing values with the more frequent status, which is 0.
 ```r
