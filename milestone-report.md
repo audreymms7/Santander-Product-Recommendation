@@ -18,9 +18,11 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 3 - Initial Findings
 ---------------------------------------
-* Age 
+* Age & Segment
+
+![image age by segment](age_by_seg.png)
 
 * Foreigner 
 
 
-foreigner_by_age.png
+![image foreigner by age](foreigner_by_age.png)
