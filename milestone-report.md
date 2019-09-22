@@ -18,4 +18,9 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 3 - Initial Findings
 ---------------------------------------
+* Age 
 
+* Foreigner 
+
+
+foreigner_by_age.png
