@@ -116,7 +116,7 @@ dta <- arrange(dta,segmento)
 dta$age[is.na(dta$age)] <- new.age$med.age[is.na(dta$age)]
 ```
 `antiguedad` contains customer senoirty in months.Weirdly, there is a large amount of negative values in the dataset. When I look at the distibution of only positive values, it's right skewed. Most client has a client-joined-date so I decide to recalulate the seniority for each client, using `fecha_alta`.
-![image age by segment](seniority.png)
+![image seniority](seniority.png)
 
 ```r
 summary(dta$antiguedad)
