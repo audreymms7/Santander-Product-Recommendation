@@ -263,6 +263,7 @@ table(dta$ind_nom_pens_ult1)
 dta$ind_nom_pens_ult1[is.na(dta$ind_nom_pens_ult1)] <- median(dta$ind_nom_pens_ult1,na.rm=TRUE)
 ```
 
+
 ### Empty Value Imputation
 ```r
 colSums(dta=="")
