@@ -141,6 +141,8 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 
 #### Data Limitation
 
+The biggest 
+
 ### Part 3 - Initial Findings
 ---------------------------------------
 * Product Ownership vs Age & Segment
