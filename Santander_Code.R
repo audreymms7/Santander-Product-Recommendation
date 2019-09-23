@@ -197,14 +197,19 @@ dta %>% summarise(count = n_distinct(ncodpers))
 
 ## Product vs gender
 #  Gender vs Income
+#  fix  order
+table(dta$income_group)
+dta$income_group = factor(dta$income_group, levels=c("Below 45k","45k~90k","90k~135k","135k~180k","180k+"))
+
 ggplot(dta, aes(x=sexo, y=..count..)) + 
-  geom_bar(aes(fill = income_group), position = "dodge")+
-  scale_fill_brewer(palette = "RdYlBu")+
+  geom_bar(aes(fill = income_group), position = "fill",alpha=0.7)+
+  scale_fill_manual(values =c("steelblue","deepskyblue","skyblue","salmon","red3"))+
   ggtitle("Income level by gender")+
   xlab("Gender") +
   ylab("Count") +
   my_theme
-mosaicplot(~ sexo + income_group, data=dta, main='Income by gender', shade=TRUE)
+
+mosaicplot(~ sexo + income_group, data=dta, main='Income by gender', ylab="Income group", xlab="Gender",shade=TRUE)
 
 
 #  product vs gender
