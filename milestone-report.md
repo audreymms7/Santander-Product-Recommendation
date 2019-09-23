@@ -18,7 +18,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 3 - Initial Findings
 ---------------------------------------
-* Age & Segment
+* Product Ownership vs Age & Segment
 
 ![image age by segment](age_by_seg.png)
 ![image age by segment](prod_age_seg.png)

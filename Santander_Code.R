@@ -190,29 +190,23 @@ prod_age_seg <- dta %>%
 str(prod_age_seg)
 prod_age_seg2 <- prod_age_seg %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)
 
-df <- prod_age_seg2 %>% 
+prod_age_seg3 <- prod_age_seg2 %>% 
   group_by(segmento, age_group, Prod) %>%
   summarise(sum_cnts = sum(Counts))
 
 head(prod_age_seg2)
 head(dta)
 
-ggplot(prod_age_seg2, aes(x=age_group, fill=Prod))+
-  geom_bar()+
-  facet_wrap(.~segmento)+
-  my_theme+
-  ggtitle("Product ownership across Age and Segment")
 
-ggplot(df, aes(x=Prod, y=sum_cnts, fill=age_group, position))+
+ggplot(prod_age_seg3, aes(x=Prod, y=sum_cnts, fill=age_group, position))+
   geom_col()+
-  facet_wrap(.~segmento)
-
-
-  my_theme+
-  ggtitle("Product ownership across Age and Segment")
+  facet_wrap(.~segmento)+
+  ggtitle("Product ownership across Age and Segment")+
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
 #Foreign workers 26-45 yrs old 
 mosaicplot(~ indext + age_group, data=dta, main='Foreign/Domestic by age group', shade=TRUE)
 
-dta <- read.csv('/Users/audreymms/Documents/Santander/Santander-Product-Recommendation/Santander_cleaned.csv', fileEncoding="UTF-8-BOM")
+
 
