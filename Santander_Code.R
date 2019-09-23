@@ -4,9 +4,7 @@ library(dplyr)
 library(tidyr)
 library(Amelia)
 library(ggplot2)
-install.packages("lubridate")
 library(lubridate)
-install.packages("reshape2")
 library(reshape2)
 
 
@@ -284,7 +282,6 @@ ggplot(prod_income2, aes(x=Prod, y=sum_cnts, fill=income_group))+
   theme(axis.text.x = element_text(size=8,angle = 90))
 
 
-
 ##  Product vs channel
 table(dta$canal_entrada)
 count(dta,canal_entrada, sort=T)
@@ -362,8 +359,43 @@ ggplot(prod_tenure3, aes(x=Prod, y=sum_cnts, fill=ind_nuevo))+
 
 ##  Single line client
 #   Create a new column to calulate num of product client has
+dta$total_prod <- rowSums(dta[21:44])
+str(dta)
+table(dta$total_prod)
+temp <- dta%>% filter(total_prod==0)
+#   Plot
+prod_count <- dta %>% 
+  select(segmento, 21:44, 48)
+str(prod_count)
+prod_count2 <- prod_count %>% 
+  filter(total_prod==1)%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(segmento, Prod) %>%
+  summarise(sum_cnts = sum(Counts))
 
+ggplot(prod_count2, aes(x=Prod, y=sum_cnts, fill=segmento))+
+  geom_col()+
+  scale_fill_manual(values = c("steelblue","skyblue","red3"))+
+  ggtitle("Product ownership - Single line client")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
+prod_count3 <- prod_count %>% 
+  filter(total_prod==2)%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(segmento, Prod) %>%
+  summarise(sum_cnts = sum(Counts))
+
+ggplot(prod_count3, aes(x=Prod, y=sum_cnts, fill=segmento))+
+  geom_col()+
+  scale_fill_manual(values = c("steelblue","skyblue","red3"))+
+  ggtitle("Product ownership - clients with two products")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
 ##  Employee Status
 table(dta$ind_empleado)
