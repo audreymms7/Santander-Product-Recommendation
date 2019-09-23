@@ -2,7 +2,7 @@
 # Santander Product Recommendation
 
 Audrey Meng
-2019 Sept. 22
+Sept. 22 2019
 
 
 
@@ -20,18 +20,45 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 
 
-### Part 3 - Detailed Data Analysis
+### Part 3 - Data First Glance
 
 
-#### Data Wrangling
+#### 3.1 First Glance
 
-#### Exploratory Data Analysis
+#### 3.2 Data Wrangling
 
-#### Model
+Multiple data cleaning steps have to be conducted to the original dataset before I can perfrom any analysis and extract any valuable insights from it. 
 
-#### Model Results
+Several variables contain missing values. Some of them can be simply imputed with more frequent status or median value, while others are more complicated. For example, I find out `renta` (gross income) has abundance of missing values and varies greatly across different province, therefore instead of filling in missing values with mean or median, it’s more accurate to break it down by province and use the median of each province.
 
-### Part 4 - Limitations and Further Study
+![image income_by_prov](Rplot.png)
+
+
+`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative outliers in the dataset.
+```r
+#   Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+#-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
+```
+Most client has a client-joined-date so I am able to recalulate the seniority for each client, using `fecha_alta`.
+
+To enhance visulisation readability, some new features are derived from existing variables. For example, `age_group` is created to categorise age into brackets. 
+
+Additionaly, there’s also abundance of character variables that contain empty values and inconsistent formats.I decide to clean the format and either fill the empty strings with the most common value or remove the variable, based on my judgement. Since the dataset is in Spanish, some factor levels are also translated into English for better readability.
+
+Lastly, some features are not loaded into R in the appropriate format. For example, `fecha_dato` (current date) and `fecha_alta` (client start date) are read as factor variables, so I have to convert them into dates.
+
+### Part 4 - Exploratory Data Analysis
+
+#### 4.1
+
+
+### Part 5 - Prediction
+
+#### 5.1 Model Selection
+
+#### 5.2 Model Results
+
+### Part 6 - Limitations and Further Study
 
 Due to resource constaints, the analysis conducted in this project is based on a stratified random sampled dataset. In other words, the data is incomplete. While it is very reasonable to assume seasonality in financial service industry and pay closer attention to May and June data, taking a random sample still loses a substantial part of the data and limits its usability.
 
