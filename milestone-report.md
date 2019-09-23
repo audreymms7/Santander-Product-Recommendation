@@ -86,7 +86,7 @@ Several variables contain missing values. Some of them can be simply imputed wit
 ![image income_by_prov](Rplot.png)
 
 
-`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative values in the dataset.
+`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative outliers in the dataset.
 ```r
 #   Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
 #-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
@@ -100,15 +100,18 @@ Additionaly, there’s also abundance of character variables that contain empty 
 
 Lastly, some features are not loaded into R in the appropriate format. For example, `fecha_dato` (current date) and `fecha_alta` (client start date) are read as factor variables, so I have to convert them into dates.
 
-#### 2.3 Data Limitation
+### 2.3 Data Limitation
 
-The biggest 
+Due to resource constaints, the analysis conducted in this project is based on a stratified random sampled dataset. In other words, the data is incomplete. While it is very reasonable to assume seasonality in financial service industry and pay closer attention to May and June data, taking a random sample still loses a substantial part of the data and limits its usability.
+The 
 
-`Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
+For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. 
 
-### Part 3 - Initial Findings
+In addition, some of the missing value imputation can be further improved. Instead of 
+
+## Part 3 - Initial Findings
 ---------------------------------------
-#### 3.1 Product Ownership vs Age & Segment
+### 3.1 Product Ownership vs Age & Segment
 
 Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age](age.png)
@@ -116,7 +119,7 @@ Satander's client age is very right skewed - they have an abundance of student a
 ![image age by segment](age_segment2.png)
 ![image age by segment](prod_age_seg.png)
 
-#### 3.2 Product Ownership vs Domestic/International Client 
+### 3.2 Product Ownership vs Domestic/International Client 
 
 
 ![image foreigner by age](foreigner_by_age.png)
@@ -124,8 +127,8 @@ Satander's client age is very right skewed - they have an abundance of student a
 
 
 
-#### 3.3 Product Ownership vs Income & Province
+### 3.3 Product Ownership vs Income & Province
 
-#### 3.4  Product Ownership vs Acquisition Channel
-#### 3.5  Seniority
-#### 3.6  Single-line Client
+### 3.4  Product Ownership vs Acquisition Channel
+### 3.5  Seniority
+### 3.6  Single-line Client
