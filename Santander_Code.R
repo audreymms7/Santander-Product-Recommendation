@@ -1,4 +1,4 @@
-## Prepare R
+### Prepare R
 
 library(dplyr)
 library(tidyr)
@@ -17,18 +17,18 @@ my_theme <- theme_bw() +
         axis.text =element_text(size=12,color="steelblue") )
 
 my_theme_dark <- theme_dark() +
-  theme(axis.title=element_text(size=24),
-        plot.title=element_text(size=36),
+  theme(axis.title=element_text(size=20),
+        plot.title=element_text(size=28),
         axis.text =element_text(size=16))
 
-## First Glance
+### First Glance
 
 dta <- read.csv('Santander_Train2.csv', fileEncoding="UTF-8-BOM")
 str(dta)
 colSums(is.na(dta))
 
-## Missing Value Imputation
-#  age
+### Missing Value Imputation
+##  age
 ggplot(dta,aes(x=age))+
   geom_bar(aes(y = ..count..),position="dodge", fill="skyblue")+
   xlim(c(16,100))+
@@ -52,7 +52,7 @@ new.age <- dta %>%
 dta <- arrange(dta,segmento)
 dta$age[is.na(dta$age)] <- new.age$med.age[is.na(dta$age)]
 
-#  antiguedad
+##  antiguedad
 summary(dta$antiguedad)
 ggplot(dta, aes(x=antiguedad)) +                       
   geom_histogram(fill="skyblue", alpha=0.5) +
@@ -75,7 +75,7 @@ elapsed.months <- function(end_date, start_date) {
 recalculated.antiguedad <- elapsed.months(dta$fecha_dato,dta$fecha_alta)
 dta$antiguedad <- recalculated.antiguedad
 
-#  ind_nuevo
+##  ind_nuevo
 ant <- dta%>% 
   filter (is.na(ind_nuevo)) %>%
   select(antiguedad)
@@ -83,7 +83,7 @@ summary(ant)
 
 dta$ind_nuevo[is.na(dta$ind_nuevo)] <- 0
 
-#  Renta
+##  Renta
 summary(dta$renta)
 dta %>%
   filter(!is.na(renta)) %>%
@@ -118,7 +118,7 @@ dta <- arrange(dta,nomprov)
 dta$renta[is.na(dta$renta)] <- new.incomes$med.income[is.na(dta$renta)]
 dta$renta[is.na(dta$renta)] <- median(dta$renta,na.rm=TRUE)
 
-#  Indrel & other variables
+##  Indrel & other variables
 table(dta$indrel)
 dta$indrel[is.na(dta$indrel)] <- 1 
 table(dta$ind_actividad_cliente)
@@ -131,7 +131,7 @@ dta$ind_nomina_ult1[is.na(dta$ind_nomina_ult1)] <- median(dta$ind_nomina_ult1,na
 table(dta$ind_nom_pens_ult1)
 dta$ind_nom_pens_ult1[is.na(dta$ind_nom_pens_ult1)] <- median(dta$ind_nom_pens_ult1,na.rm=TRUE)
 
-## Empty Value Imputation
+### Empty Value Imputation
 
 colSums(dta=="")
 summary(dta$segmento) 
@@ -156,12 +156,12 @@ dta$segmento[dta$segmento==""]               <- "02 - PARTICULARES"
 str(dta)
 
 
-## Export Clean Data
+### Export Clean Data
 write.csv(dta, "Santander_cleaned.csv",row.names = FALSE)
 
-## EDA
+### EDA
 str(dta)
-# Convert Data Type
+## Convert Data Type
 
 dta$indrel <- as.factor(dta$indrel)
 dta$ind_nuevo <- as.factor(dta$ind_nuevo)
@@ -170,7 +170,7 @@ dta$ind_actividad_cliente <- as.factor(dta$ind_actividad_cliente)
 dta$ind_nomina_ult1 <- as.integer(dta$ind_nomina_ult1)
 dta$ind_nom_pens_ult1 <- as.integer(dta$ind_nom_pens_ult1)
 
-# Convert age into brackets: "0 to 15","16 to 25","26 to 35","36 to 45","46 to 55","56 to 65","65+"
+## Convert age and income into brackets: "0 to 15","16 to 25","26 to 35","36 to 45","46 to 55","56 to 65","65+"
 dta$age_group[dta$age > 65] <- "65+"
 dta$age_group[dta$age > 55 & dta$age <= 65] <- "56~65"
 dta$age_group[dta$age > 45 & dta$age <= 55] <- "46~55"
@@ -182,30 +182,30 @@ dta$age_group[dta$age <= 15] <- "0~15"
 levels(dta$segmento)[levels(dta$segmento)=="02 - PARTICULARES"] <- "Regular"
 levels(dta$segmento)[levels(dta$segmento)=="01 - TOP"] <- "VIP"
 levels(dta$segmento)[levels(dta$segmento)=="03 - UNIVERSITARIO"] <- "Student"
-# Age & Income
-# Product vs Age/Segment
+
+## count of client
+dta %>% summarise(count = n_distinct(ncodpers))
+
+
+
+## Product vs Age/Segment
 str(dta)
 prod_age_seg <- dta %>% 
                 select(20,21:45)
 str(prod_age_seg)
-prod_age_seg2 <- prod_age_seg %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)
-
-prod_age_seg3 <- prod_age_seg2 %>% 
-  group_by(segmento, age_group, Prod) %>%
-  summarise(sum_cnts = sum(Counts))
-
-head(prod_age_seg2)
-head(dta)
+prod_age_seg2 <- prod_age_seg %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+                 group_by(segmento, age_group, Prod) %>%
+                 summarise(sum_cnts = sum(Counts))
 
 
-ggplot(prod_age_seg3, aes(x=Prod, y=sum_cnts, fill=age_group, position))+
+ggplot(prod_age_seg2, aes(x=Prod, y=sum_cnts, fill=age_group, position))+
   geom_col()+
   facet_wrap(.~segmento)+
   ggtitle("Product ownership across Age and Segment")+
   my_theme +
   theme(axis.text.x = element_text(size=8,angle = 90))
 
-#Foreign workers 26-45 yrs old 
+##  Product vs Foreign workers 26-45 yrs old 
 mosaicplot(~ indext + age_group, data=dta, main='Foreign/Domestic by age group', shade=TRUE)
 
 
