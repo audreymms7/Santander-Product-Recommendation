@@ -308,12 +308,60 @@ ggplot(prod_chan2, aes(x=Prod, y=sum_cnts, fill=canal_entrada))+
   theme(axis.text.x = element_text(size=8,angle = 90))
 
 ##  Product vs seniority
+#   create seniority group - tenure
+table(dta$antiguedad)
+dta$tenure[dta$antiguedad > 180] <- "Over 15 yrs"
+dta$tenure[dta$antiguedad > 120 & dta$antiguedad <= 180] <- "10~15 yrs"
+dta$tenure[dta$antiguedad > 60 & dta$antiguedad <= 120] <- "5~10 yrs"
+dta$tenure[dta$antiguedad > 24 & dta$antiguedad <= 60] <- "2~5 yrs"
+dta$tenure[dta$antiguedad >= 0 & dta$antiguedad <= 24] <- "Below 2 yrs"
+table(dta$tenure)
 
+#   plot tenure 2 to 15
+str(dta)
+prod_tenure <- dta %>% 
+  select(ind_nuevo,21:44, tenure)
+str(prod_tenure)
+prod_tenure2 <- prod_tenure %>% 
+  filter(tenure %in% c("2~5 yrs","5~10 yrs","10~15 yrs"))%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(tenure, ind_nuevo, Prod) %>%
+  summarise(sum_cnts = sum(Counts))
+#   fix facet order
+prod_tenure2$tenure = factor(prod_tenure2$tenure, levels=c("2~5 yrs","5~10 yrs","10~15 yrs"))
+
+ggplot(prod_tenure2, aes(x=Prod, y=sum_cnts) )+
+  geom_col(fill= "skyblue")+
+  facet_wrap(.~tenure)+
+  ggtitle("Product ownership - 2 to 15 yrs tenure")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
+
+#   plot tenure under 2 yrs
+
+prod_tenure3 <- prod_tenure %>% 
+  filter(tenure =="Below 2 yrs")%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(tenure, ind_nuevo, Prod) %>%
+  summarise(sum_cnts = sum(Counts))
+
+
+ggplot(prod_tenure3, aes(x=Prod, y=sum_cnts, fill=ind_nuevo))+
+  geom_col()+
+  facet_wrap(.~tenure)+
+  scale_fill_manual(values = c("skyblue","red3"))+
+  ggtitle("Product ownership - less 2 yrs tenure")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
 
 
 ##  Single line client
-
+#   Create a new column to calulate num of product client has
 
 
 

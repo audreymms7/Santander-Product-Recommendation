@@ -152,6 +152,10 @@ Satander's client age is very right skewed - they have an abundance of student a
 ![image prod by channel](prod_chan.png)
 
 ### 3.6  Seniority
+
+![image prod by tenure2](prod_tenure2.png)
+![image prod by tenure1](prod_tenure1.png)
+
 ### 3.7  Single-line Client
 ### 3.8  Employee
 
