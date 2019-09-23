@@ -18,7 +18,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 
 ### Available Variables
 
-1. Categorical variables:
+* Categorical variables:
 
 | Variable               	|  Defination                                             	|
 |------------------------	|---------------------------------------------------------	|
@@ -40,7 +40,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | fecha_alta             	|  when they became first holder of a contract in the bank 	|
 
 
-2. Numeric variables:
+* Numeric variables:
 
 | Variables                                                                   	|  Defination          	|
 |-----------------------------------------------------------------------------	|----------------------	|
@@ -48,7 +48,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | antiguedad                                                                  	|  seniority in months 	|
 | renta                                                                       	|  gross income        	|
 
-3. Target Variables: 
+* Target Variables: 
 
 | Variable           	|  Defination              	|
 |--------------------	|--------------------------	|
@@ -109,12 +109,23 @@ The biggest
 ### Part 3 - Initial Findings
 ---------------------------------------
 * Product Ownership vs Age & Segment
-I want to start with checking the distribution of `age`.
+
+Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age](age.png)
-Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+
 ![image age by segment](age_segment2.png)
 ![image age by segment](prod_age_seg.png)
-* Foreigner 
+
+* Product Ownership vs Domestic/International Client 
 
 
 ![image foreigner by age](foreigner_by_age.png)
+
+
+
+
+* Product Ownership vs Income & Province
+
+* Product Ownership vs Acquisition Channel
+* Seniority
+* Single-line Client
