@@ -119,8 +119,11 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 #### 4.1 Product Ownership vs Age & Segment
 
 Satander's client age is bimodally distributed and very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+
 ![image age](age.png)
+
 As expected, student clients are mostly in their 20's while VIP clients are usually over 50 years old. The majority regular individual clients are 40 to 60 years old. 
+
 ![image age by segment](age_segment2.png)
 
 
@@ -128,11 +131,10 @@ As expected, student clients are mostly in their 20's while VIP clients are usua
 
 #### 4.2 Product Ownership vs Gender 
 
-
-
-
+Not surprisingly, Santander's clients experience a gender income gap - as can be seen from the graph below, females (H) are overrepresented in "Below 45k" and "45k~90k" groups, and underrepresented in high income groups.
 
 ![image income by gender](gender_income2.png)
+
 
 ![image prod by gender](prod_income.png)
 
