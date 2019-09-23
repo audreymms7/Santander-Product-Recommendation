@@ -25,6 +25,74 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 #### 3.1 First Glance
 
+The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
+```r
+dta %>% summarise(count = n_distinct(ncodpers))
+#   count
+#   644819
+```
+The dataset used has over 600k unique clients, which means most clients appear once or twice in this data.
+
+
+* _Categorical variables:_
+
+| Variable               	|  Defination                                             	|
+|------------------------	|---------------------------------------------------------	|
+| sexo                   	|  gender                                                 	|
+| ind_nuevo              	|  new customer index                                     	|
+| ind_empleado           	|  customer employee status                               	|
+| segmento               	|  segmentation                                           	|
+| nomprov                	|  Province                                               	|
+| tipodom                	|  Address                                                	|
+| cod_prov               	|  Province code                                          	|
+| indext                 	|  Foreigner index                                        	|
+| indresi                	|  Residence index                                        	|
+| indrel                 	|  primary customer at beginning but   not end of month   	|
+| tiprel_1mes            	|  Customer relation type at the   beginning of the month 	|
+| ind_actividad_cliente  	|  customer active index                                  	|
+| canal_entrada          	|  Acquisition channel                                    	|
+| conyuemp               	|  Spourse index                                          	|
+| fecha_dato             	|  The table is partitioned for this column                	|
+| fecha_alta             	|  when they became first holder of a contract in the bank 	|
+
+
+* _Numeric variables:_
+
+| Variables                                                                   	|  Defination          	|
+|-----------------------------------------------------------------------------	|----------------------	|
+| age                                                                         	|  age                 	|
+| antiguedad                                                                  	|  seniority in months 	|
+| renta                                                                       	|  gross income        	|
+
+* _Target Variables: _
+
+| Variable           	|  Defination              	|
+|--------------------	|--------------------------	|
+| ind_ahor_fin_ult1  	|  Saving Account          	|
+| ind_aval_fin_ult1  	|  Guarantees              	|
+| ind_cco_fin_ult1   	|  Current Accounts        	|
+| ind_cder_fin_ult1  	|  Derivada Account        	|
+| ind_cno_fin_ult1   	|  Payroll Account         	|
+| ind_ctju_fin_ult1  	|  Junior Account          	|
+| ind_ctma_fin_ult1  	|  Más particular Account  	|
+| ind_ctop_fin_ult1  	|  particular Account      	|
+| ind_ctpp_fin_ult1  	|  particular Plus Account 	|
+| ind_deco_fin_ult1  	|  Short - term deposits   	|
+| ind_deme_fin_ult1  	|  Medium - term deposits  	|
+| ind_dela_fin_ult1  	|  Long - term deposits    	|
+| ind_ecue_fin_ult1  	|  e - account             	|
+| ind_fond_fin_ult1  	|  Funds                   	|
+| ind_hip_fin_ult1   	|  Mortgage                	|
+| ind_plan_fin_ult1  	|  Pensions                	|
+| ind_pres_fin_ult1  	|  Loans                   	|
+| ind_reca_fin_ult1  	|  Taxes                   	|
+| ind_tjcr_fin_ult1  	|  Credit Card             	|
+| ind_valo_fin_ult1  	|  Securities              	|
+| ind_viv_fin_ult1   	|  Home Account            	|
+| ind_nomina_ult1    	|  Payroll                 	|
+| ind_nom_pens_ult1  	|  Pensions                	|
+| ind_recibo_ult1    	|  Direct Debit            	|
+
 #### 3.2 Data Wrangling
 
 Multiple data cleaning steps have to be conducted to the original dataset before I can perfrom any analysis and extract any valuable insights from it. 
