@@ -102,12 +102,11 @@ Several variables contain missing values. Some of them can be simply imputed wit
 ![image income_by_prov](Rplot.png)
 
 
-`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative outliers in the dataset.
+`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative outliers in the dataset. Most client has a client joined date so I am able to recalulate the seniority for each client, using `fecha_alta` and `fecha_dato`.
 ```r
 #   Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
 #-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
 ```
-Most client has a client-joined-date so I am able to recalulate the seniority for each client, using `fecha_alta`.
 
 To enhance visulisation readability, some new features are derived from existing variables. For example, `age_group` is created to categorise age into brackets. 
 
@@ -119,16 +118,20 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 
 #### 4.1 Product Ownership vs Age & Segment
 
-Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+Satander's client age is bimodally distributed and very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age](age.png)
-
+As expected, student clients are mostly in their 20's while VIP clients are usually over 50 years old. The majority regular individual clients are 40 to 60 years old. 
 ![image age by segment](age_segment2.png)
+
+
 ![image prod by age by segment](prod_age_seg.png)
 
 #### 4.2 Product Ownership vs Gender 
 
 
-![image income by gender](gender_income.png)
+
+
+
 ![image income by gender](gender_income2.png)
 
 ![image prod by gender](prod_income.png)
