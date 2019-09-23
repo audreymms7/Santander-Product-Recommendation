@@ -16,7 +16,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 ---------------------------------------
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
 
-### Available Variables
+### 2.1 Available Variables
 
 * Categorical variables:
 
@@ -77,7 +77,7 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | ind_nom_pens_ult1  	|  Pensions                	|
 | ind_recibo_ult1    	|  Direct Debit            	|
 
-### Data Cleaning
+### 2.2 Data Cleaning
 
 Multiple data cleaning steps have to be conducted to the original dataset before I can perfrom any analysis and extract any valuable insights from it. 
 
@@ -86,7 +86,7 @@ Several variables contain missing values. Some of them can be simply imputed wit
 ![image income_by_prov](Rplot.png)
 
 
-`antiguedad` contains customer senoirty in months. I suspect data in this feature is inaccurate since there is a large amount of negative values in the dataset.
+`antiguedad` contains customer senoirty in months. I suspect data in this feature is not so accurate since there is a number of negative values in the dataset.
 ```r
 #   Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
 #-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
@@ -100,7 +100,7 @@ Additionaly, there’s also abundance of character variables that contain empty 
 
 Lastly, some features are not loaded into R in the appropriate format. For example, `fecha_dato` (current date) and `fecha_alta` (client start date) are read as factor variables, so I have to convert them into dates.
 
-#### Data Limitation
+#### 2.3 Data Limitation
 
 The biggest 
 
@@ -108,7 +108,7 @@ The biggest
 
 ### Part 3 - Initial Findings
 ---------------------------------------
-* Product Ownership vs Age & Segment
+#### 3.1 Product Ownership vs Age & Segment
 
 Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age](age.png)
@@ -116,7 +116,7 @@ Satander's client age is very right skewed - they have an abundance of student a
 ![image age by segment](age_segment2.png)
 ![image age by segment](prod_age_seg.png)
 
-* Product Ownership vs Domestic/International Client 
+#### 3.2 Product Ownership vs Domestic/International Client 
 
 
 ![image foreigner by age](foreigner_by_age.png)
@@ -124,8 +124,8 @@ Satander's client age is very right skewed - they have an abundance of student a
 
 
 
-* Product Ownership vs Income & Province
+#### 3.3 Product Ownership vs Income & Province
 
-* Product Ownership vs Acquisition Channel
-* Seniority
-* Single-line Client
+#### 3.4  Product Ownership vs Acquisition Channel
+#### 3.5  Seniority
+#### 3.6  Single-line Client
