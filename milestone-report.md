@@ -125,7 +125,7 @@ Satander's client age is very right skewed - they have an abundance of student a
 ![image age](age.png)
 
 ![image age by segment](age_segment2.png)
-![image age by segment](prod_age_seg.png)
+![image prod by age by segment](prod_age_seg.png)
 
 ### 3.2 Product Ownership vs Domestic/International Client 
 
@@ -133,11 +133,15 @@ Satander's client age is very right skewed - they have an abundance of student a
 ![image foreigner by age](foreigner_by_age.png)
 
 
-
+![image prod by foreigner](prod_foreign.png)
 
 ### 3.3 Product Ownership vs Income & Province
 
+
+
 ### 3.4  Product Ownership vs Acquisition Channel
+
+
 ### 3.5  Seniority
 ### 3.6  Single-line Client
 ### 3.7  Employee

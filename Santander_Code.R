@@ -144,6 +144,7 @@ dta$indrel_1mes[dta$indrel_1mes=="2.0"]        <- "2"
 dta$indrel_1mes[dta$indrel_1mes=="3.0"]        <- "3"
 dta$indrel_1mes[dta$indrel_1mes=="4.0"]        <- "4"
 
+dta$canal_entrada[dta$canal_entrada==""]     <- "KHE"
 dta$pais_residencia[dta$pais_residencia==""] <- "ES"
 dta$sexo[dta$sexo==""]                       <- "V"
 dta <- dta %>% select (-ult_fec_cli_1t)
@@ -183,6 +184,15 @@ levels(dta$segmento)[levels(dta$segmento)=="02 - PARTICULARES"] <- "Regular"
 levels(dta$segmento)[levels(dta$segmento)=="01 - TOP"] <- "VIP"
 levels(dta$segmento)[levels(dta$segmento)=="03 - UNIVERSITARIO"] <- "Student"
 
+summary(dta$renta)
+dta$income_group[dta$renta > 180000] <- "180k+"
+dta$income_group[dta$renta > 135000 & dta$renta <= 180000] <- "135k~180k"
+dta$income_group[dta$renta > 90000 & dta$renta <= 135000] <- "90k~135k"
+dta$income_group[dta$renta > 45000 & dta$renta <= 90000] <- "45k~90k"
+dta$income_group[dta$renta > 0 & dta$renta <= 45000] <- "Below 45k"
+
+table(dta$income_group)
+
 ## count of client
 dta %>% summarise(count = n_distinct(ncodpers))
 
@@ -198,15 +208,48 @@ prod_age_seg2 <- prod_age_seg %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_rec
                  summarise(sum_cnts = sum(Counts))
 
 
-ggplot(prod_age_seg2, aes(x=Prod, y=sum_cnts, fill=age_group, position))+
+ggplot(prod_age_seg2, aes(x=Prod, y=sum_cnts, fill=age_group))+
   geom_col()+
   facet_wrap(.~segmento)+
   ggtitle("Product ownership across Age and Segment")+
   my_theme +
   theme(axis.text.x = element_text(size=8,angle = 90))
 
-##  Product vs Foreign workers 26-45 yrs old 
+##  Product vs Foreign workers
 mosaicplot(~ indext + age_group, data=dta, main='Foreign/Domestic by age group', shade=TRUE)
+prod_foreign <- dta %>% 
+  select(14,21:44)
+str(prod_foreign)
+prod_foreign2 <- prod_foreign %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(indext,Prod) %>%
+  summarise(sum_cnts = sum(Counts))
 
+ggplot(prod_foreign2, aes(x=Prod, y=sum_cnts, fill=indext))+
+  geom_col()+
+  facet_wrap(.~indext)+
+  scale_fill_manual(values = c("skyblue","red3"))+
+  ggtitle("Product ownership for domestic/foreign clients")+
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
+##  Product vs Income
 
+##  Product vs channel
+table(dta$canal_entrada)
+count(dta,canal_entrada, sort=T)
+#   only plot top 7 channels
+prod_chan <- dta %>% 
+  select(15,21:44)
+str(prod_chan)
+prod_chan2 <- prod_chan %>% filter(canal_entrada %in% c("KHE","KAT","KFC","KHQ","KFA","KHK","KHM"))%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(canal_entrada,Prod) %>%
+  summarise(sum_cnts = sum(Counts))
+
+ggplot(prod_chan2, aes(x=Prod, y=sum_cnts, fill=canal_entrada))+
+  geom_col()+
+  facet_wrap(.~canal_entrada)+
+  scale_fill_brewer(palette = "RdYlBu")+
+  ggtitle("Product ownership by channel")+
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
