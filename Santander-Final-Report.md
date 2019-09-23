@@ -64,7 +64,7 @@ The dataset used has over 600k unique clients, which means most clients appear o
 | antiguedad                                                                  	|  seniority in months 	|
 | renta                                                                       	|  gross income        	|
 
-* _Target Variables: _
+* _Target Variables:_
 
 | Variable           	|  Defination              	|
 |--------------------	|--------------------------	|
@@ -117,7 +117,61 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 
 ### Part 4 - Exploratory Data Analysis
 
-#### 4.1
+#### 4.1 Product Ownership vs Age & Segment
+
+Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+![image age](age.png)
+
+![image age by segment](age_segment2.png)
+![image prod by age by segment](prod_age_seg.png)
+
+#### 4.2 Product Ownership vs Gender 
+
+
+![image income by gender](gender_income.png)
+![image income by gender](gender_income2.png)
+
+![image prod by gender](prod_income.png)
+
+#### 4.3 Product Ownership vs Domestic/International Client 
+
+
+![image foreigner by age](foreigner_by_age.png)
+
+
+![image prod by foreigner](prod_foreign.png)
+
+#### 4.4 Product Ownership vs Income 
+
+![image prod by income](prod_income.png)
+
+#### 4.5  Product Ownership vs Acquisition Channel
+
+![image prod by channel](prod_chan.png)
+
+#### 4.6  Seniority
+
+![image prod by tenure2](prod_tenure2.png)
+![image prod by tenure1](prod_tenure1.png)
+
+#### 4.7  Single-line Client
+
+
+![image prod single line](prod_singleline.png)
+![image prod two line](prod_twoline.png)
+
+#### 4.8  Employee
+
+```r
+table(dta$ind_empleado)
+
+#         A      B      F      N 
+
+#        204    282    203 999311 
+```
+![image prod for non employee](prod_nonemp.png)
+![image prod for employee](prod_emp.png)
+
 
 
 ### Part 5 - Prediction
