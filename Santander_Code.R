@@ -361,7 +361,6 @@ ggplot(prod_tenure3, aes(x=Prod, y=sum_cnts, fill=ind_nuevo))+
   theme(axis.text.x = element_text(size=8,angle = 90))
 
 
-
 ##  Single line client
 #   Create a new column to calulate num of product client has
 dta$total_prod <- rowSums(dta[21:44])
