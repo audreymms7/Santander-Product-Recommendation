@@ -20,7 +20,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 ---------------------------------------
 * Product Ownership vs Age & Segment
 
-![image age by segment](age_by_seg.png)
+![image age by segment](age_segment2.png)
 ![image age by segment](prod_age_seg.png)
 * Foreigner 
 
