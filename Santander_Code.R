@@ -12,9 +12,9 @@ library(reshape2)
 
 set.seed(1)
 my_theme <- theme_bw() +
-  theme(axis.title=element_text(size=24,color="steelblue"),
-        plot.title=element_text(size=36,color="steelblue"),
-        axis.text =element_text(size=16,color="steelblue") )
+  theme(axis.title=element_text(size=20,color="steelblue"),
+        plot.title=element_text(size=28,color="steelblue"),
+        axis.text =element_text(size=12,color="steelblue") )
 
 my_theme_dark <- theme_dark() +
   theme(axis.title=element_text(size=24),
