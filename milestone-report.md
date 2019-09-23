@@ -3,7 +3,7 @@
 
 
 
-### Part 1 - Project Goals
+## Part 1 - Project Goals
 ---------------------------------------
 To support needs for a range of financial decisions, Santander Bank offers a lending hand to their customers through personalized product recommendations. Under their current system, a small number of Santander’s customers receive many recommendations while many others rarely see any, resulting in poor customer experience.
 
@@ -12,11 +12,11 @@ The project aims to assist the bank to predict which products their existing cus
 Data used in this project is available on [Kaggle](https://www.kaggle.com/c/santander-product-recommendation/data). This project mainly uses train dataset, which includes 13 millions rows of customer bahaviour data, split by month.
 
 
-### Part 2 - Deep Dive into Data
+## Part 2 - Deep Dive into Data
 ---------------------------------------
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
 
-#### Available Variables
+### Available Variables
 
 1. Categorical variables:
 
@@ -77,29 +77,21 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 | ind_nom_pens_ult1  	|  Pensions                	|
 | ind_recibo_ult1    	|  Direct Debit            	|
 
-#### Data Cleaning
+### Data Cleaning
 
 Multiple data cleaning steps have to be conducted to the original dataset before I can perfrom any analysis and extract any valuable insights from it. 
 
 Several variables contain missing values. Some of them can be simply imputed with more frequent status or median value, while others are more complicated. For example, I find out `renta` (gross income) has abundance of missing values and varies greatly across different province, therefore instead of filling in missing values with mean or median, it’s more accurate to break it down by province and use the median of each province.
-![image income_by_prov](Rplot.png)
 
+![image income_by_prov](Rplot.png)
 
 
 `antiguedad` contains customer senoirty in months. I suspect data in this feature is inaccurate since there is a large amount of negative values in the dataset.
 ```r
-    Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
--999999.0      23.0      52.0      75.6     137.0     256.0      2407 
+#   Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+#-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
 ```
 Most client has a client-joined-date so I am able to recalulate the seniority for each client, using `fecha_alta`.
-![image seniority](seniority.png)
-
-
-
-
-
-
-`Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
 
 
 To enhance visulisation readability, some new features are derived from existing variables. For example, `age_group` is created to categorise age into groups. 
@@ -111,6 +103,8 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 #### Data Limitation
 
 The biggest 
+
+`Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
 
 ### Part 3 - Initial Findings
 ---------------------------------------
