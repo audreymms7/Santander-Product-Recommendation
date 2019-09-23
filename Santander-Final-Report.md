@@ -136,7 +136,7 @@ Not surprisingly, Santander's clients experience a gender income gap - as can be
 ![image income by gender](gender_income2.png)
 
 
-![image prod by gender](prod_income.png)
+![image prod by gender](prod_gender.png)
 
 #### 4.3 Product Ownership vs Domestic/International Client 
 
