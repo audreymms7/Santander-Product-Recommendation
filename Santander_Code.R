@@ -39,6 +39,7 @@ dta %>%
   filter(segmento!="")%>%
   ggplot(aes(segmento,age)) +                                                  
   geom_boxplot(aes(fill=factor(segmento)),alpha=0.5) +
+  scale_fill_manual(values = c("skyblue","skyblue","red3"))+
   my_theme+
   ggtitle("Age distribution by client segment")
 
@@ -196,6 +197,19 @@ table(dta$income_group)
 ## count of client
 dta %>% summarise(count = n_distinct(ncodpers))
 
+## Product vs gender
+#  Gender vs Income
+ggplot(dta, aes(x=sexo, y=..count..)) + 
+  geom_bar(aes(fill = income_group), position = "dodge")+
+  scale_fill_brewer(palette = "RdYlBu")+
+  ggtitle("Income level by gender")+
+  xlab("Gender") +
+  ylab("Count") +
+  my_theme
+
+#  product vs gender
+
+
 
 
 ## Product vs Age/Segment
@@ -229,10 +243,30 @@ ggplot(prod_foreign2, aes(x=Prod, y=sum_cnts, fill=indext))+
   facet_wrap(.~indext)+
   scale_fill_manual(values = c("skyblue","red3"))+
   ggtitle("Product ownership for domestic/foreign clients")+
+  xlab("Product") +
+  ylab("Number of product") +
   my_theme +
   theme(axis.text.x = element_text(size=8,angle = 90))
 
 ##  Product vs Income
+prod_income <- dta %>% 
+  select(5,19, 21:44,46)
+str(prod_income)
+prod_income2 <- prod_income %>% 
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(income_group,Prod) %>%
+  summarise(sum_cnts = sum(Counts))
+
+ggplot(prod_income2, aes(x=Prod, y=sum_cnts, fill=income_group))+
+  geom_col(position = "dodge")+
+  scale_fill_brewer(palette = "RdYlBu")+
+  ggtitle("Product ownership by income level")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
+
+
 
 ##  Product vs channel
 table(dta$canal_entrada)
@@ -251,5 +285,57 @@ ggplot(prod_chan2, aes(x=Prod, y=sum_cnts, fill=canal_entrada))+
   facet_wrap(.~canal_entrada)+
   scale_fill_brewer(palette = "RdYlBu")+
   ggtitle("Product ownership by channel")+
+  xlab("Product") +
+  ylab("Number of product") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
+
+##  Product vs seniority
+
+
+
+
+##  Single line client
+
+
+
+
+##  Employee Status
+table(dta$ind_empleado)
+
+prod_employee <- dta %>% 
+  select(3, 21:44)
+str(prod_income)
+#   Non Employee
+prod_emp <- prod_employee %>% 
+  filter(ind_empleado=="N")%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(ind_empleado,Prod) %>%
+  summarise(sum_cnts = sum(Counts))%>%
+  mutate(Percentage=sum_cnts/sum(sum_cnts)*100)
+
+ggplot(prod_emp, aes(x=Prod, y=Percentage, fill=ind_empleado))+
+  geom_col(position = "dodge", alpha=0.8)+
+  scale_fill_manual(values ="skyblue")+
+  ggtitle("Product ownership for Non-employee")+
+  xlab("Product") +
+  ylab("Percent (%) for each group") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
+
+#   Employee
+prod_emp2 <- prod_employee %>% 
+  filter(ind_empleado!="N")%>%
+  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(ind_empleado,Prod) %>%
+  summarise(sum_cnts = sum(Counts))%>%
+  mutate(Percentage=sum_cnts/sum(sum_cnts)*100)
+
+ggplot(prod_emp2, aes(x=Prod, y=Percentage, fill=ind_empleado))+
+  geom_col(position = "dodge",alpha = 0.8)+
+  scale_fill_manual(values =c("steelblue","skyblue","red3"))+
+  ggtitle("Product ownership for Employee")+
+  xlab("Product") +
+  ylab("Percent (%) for each group") +
   my_theme +
   theme(axis.text.x = element_text(size=8,angle = 90))
