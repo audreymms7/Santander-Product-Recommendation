@@ -103,11 +103,12 @@ Lastly, some features are not loaded into R in the appropriate format. For examp
 ### 2.3 Data Limitation
 
 Due to resource constaints, the analysis conducted in this project is based on a stratified random sampled dataset. In other words, the data is incomplete. While it is very reasonable to assume seasonality in financial service industry and pay closer attention to May and June data, taking a random sample still loses a substantial part of the data and limits its usability.
-The 
 
-For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. 
+One of the biggest limitations of using sampled data is I am not able to track client over time. For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an important variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. For clients who are no longer primary customers at end of month, it would be interesting to compare their product owenership with previous month. Other questions that can be answered with full dataset include: 
+* Which products are usually bought together or within short period of time?
+* What is the most common order of purchase? For example, chequing account, saving account then mortgage?
+* It costs much less to maintain and cross sell to an existing client than to acquire a new one. How long does it take to cross sell or upsell other products to clients in differnt segments? In other words, how much marketing and sales efforts should Santander expect to spend, before they become multi-line (and more profitable) clients?
 
-In addition, some of the missing value imputation can be further improved. Instead of 
 
 ## Part 3 - Initial Findings
 ---------------------------------------
@@ -132,3 +133,4 @@ Satander's client age is very right skewed - they have an abundance of student a
 ### 3.4  Product Ownership vs Acquisition Channel
 ### 3.5  Seniority
 ### 3.6  Single-line Client
+### 3.7  Employee
