@@ -4,7 +4,7 @@
 
 
 ## Part 1 - Project Goals
----------------------------------------
+
 To support needs for a range of financial decisions, Santander Bank offers a lending hand to their customers through personalized product recommendations. Under their current system, a small number of Santander’s customers receive many recommendations while many others rarely see any, resulting in poor customer experience.
 
 The project aims to assist the bank to predict which products their existing customers will use in the next month based on their past behaviors and product ownerships. The goal of this project is to take Santander Bank customer information between January 2015 and May 2016, understand client behaviours and to design a solution to predict which financial service products they are likely to purchase in the next month. With a more effective recommendation system in place, Santander can better meet their client’s needs, provide better client experience with more personalised product recommendations.
@@ -13,7 +13,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 
 ## Part 2 - Deep Dive into Data
----------------------------------------
+
 The dataset contains 48 variables and around 13.6 million rows of data observations. I find this dataset too large for my PC to process, and therefore decide to take a random sample of 1 million rows and use it for all further exercises. Given that financial service industry is subject to seasonal trend (Christmas bonus, tax season, etc.) and the goal is to predict the purchasing behaviour for June, I decide to take 80% of the data from May - Jun 2015 and May 2016, and 20% from the rest months.
 ```r
 dta %>% summarise(count = n_distinct(ncodpers))
@@ -118,7 +118,7 @@ One of the biggest limitations of using sampled data is I am not able to track c
 
 
 ## Part 3 - Initial Findings
----------------------------------------
+
 ### 3.1 Product Ownership vs Age & Segment
 
 Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
