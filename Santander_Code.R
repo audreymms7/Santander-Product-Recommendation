@@ -206,10 +206,27 @@ ggplot(dta, aes(x=sexo, y=..count..)) +
   xlab("Gender") +
   ylab("Count") +
   my_theme
+mosaicplot(~ sexo + income_group, data=dta, main='Income by gender', shade=TRUE)
+
 
 #  product vs gender
+prod_gender <- dta %>% 
+  select(sexo,21:44)
+str(prod_gender)
+prod_gender2 <- prod_gender %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
+  group_by(sexo,Prod) %>%
+  summarise(sum_cnts = sum(Counts))%>%
+  mutate(Percentage=sum_cnts/sum(sum_cnts)*100)
 
-
+ggplot(prod_gender2, aes(x=Prod, y=Percentage, fill=sexo))+
+  geom_col()+
+  facet_wrap(.~sexo)+
+  scale_fill_manual(values = c("skyblue","red3"))+
+  ggtitle("Product ownership across gender")+
+  xlab("Product") +
+  ylab("Product breakdown Percent %") +
+  my_theme +
+  theme(axis.text.x = element_text(size=8,angle = 90))
 
 
 ## Product vs Age/Segment
@@ -306,26 +323,8 @@ table(dta$ind_empleado)
 prod_employee <- dta %>% 
   select(3, 21:44)
 str(prod_income)
-#   Non Employee
-prod_emp <- prod_employee %>% 
-  filter(ind_empleado=="N")%>%
-  gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
-  group_by(ind_empleado,Prod) %>%
-  summarise(sum_cnts = sum(Counts))%>%
-  mutate(Percentage=sum_cnts/sum(sum_cnts)*100)
 
-ggplot(prod_emp, aes(x=Prod, y=Percentage, fill=ind_empleado))+
-  geom_col(position = "dodge", alpha=0.8)+
-  scale_fill_manual(values ="skyblue")+
-  ggtitle("Product ownership for Non-employee")+
-  xlab("Product") +
-  ylab("Percent (%) for each group") +
-  my_theme +
-  theme(axis.text.x = element_text(size=8,angle = 90))
-
-#   Employee
 prod_emp2 <- prod_employee %>% 
-  filter(ind_empleado!="N")%>%
   gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
   group_by(ind_empleado,Prod) %>%
   summarise(sum_cnts = sum(Counts))%>%
@@ -333,7 +332,8 @@ prod_emp2 <- prod_employee %>%
 
 ggplot(prod_emp2, aes(x=Prod, y=Percentage, fill=ind_empleado))+
   geom_col(position = "dodge",alpha = 0.8)+
-  scale_fill_manual(values =c("steelblue","skyblue","red3"))+
+  facet_wrap(.~ind_empleado)+
+  scale_fill_manual(values =c("steelblue","skyblue","red3","red4"))+
   ggtitle("Product ownership for Employee")+
   xlab("Product") +
   ylab("Percent (%) for each group") +

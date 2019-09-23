@@ -131,7 +131,9 @@ Satander's client age is very right skewed - they have an abundance of student a
 
 
 ![image income by gender](gender_income.png)
+![image income by gender](gender_income2.png)
 
+![image prod by gender](prod_income.png)
 
 ### 3.3 Product Ownership vs Domestic/International Client 
 
