@@ -79,65 +79,34 @@ The dataset contains 48 variables and around 13.6 million rows of data observati
 
 #### Data Cleaning
 
-`Renta` (gross income) has most number of missing values, 204,118 in total, followed by `cod_prov` with 7,474 missing values. `Age`, `fecha_alta`, `Ind_nuevo`, `indrel`, `antiguedad`, `tipodom` and `ind_actividad_cliente` all have 2,407 missing values, so I want to further explore if it’s the same group of customer. `ind_nomina_ult1` and `ind_nom_pens_ult1` are two product variables that have 1,902 missing values.
+Multiple data cleaning steps have to be conducted to the original dataset before I can perfrom any analysis and extract any valuable insights from it. 
 
-
-
-I want to start with checking the distribution of `age`.
-![image age](age.png)
-Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
-
-![image age by segment](age_by_seg.png)
-It can be clearly seen the median age varies among different segments. Rather than just imputing missing age values by the overall average age, I decide to use median age for each segment instead.
-```r
-new.age <- dta %>%
-select(segmento) %>%
-merge(dta %>%
-group_by(segmento) %>%
-dplyr::summarise(med.age=median(age,na.rm=TRUE)),by="segmento") %>%
-select(segmento,med.age) %>%
-arrange(segmento)
-dta <- arrange(dta,segmento)
-dta$age[is.na(dta$age)] <- new.age$med.age[is.na(dta$age)]
-```
-`antiguedad` contains customer senoirty in months.Weirdly, there is a large amount of negative values in the dataset. When I look at the distibution of only positive values, it's right skewed. Most client has a client-joined-date so I decide to recalulate the seniority for each client, using `fecha_alta`.
-![image seniority](seniority.png)
-
-```r
-summary(dta$antiguedad)
-dta$fecha_alta[is.na(dta$fecha_alta)] <- median(dta$fecha_alta,na.rm=TRUE)
-elapsed.months <- function(end_date, start_date) {
-  12 * (year(end_date) - year(start_date)) + (month(end_date) - month(start_date))
-}
-recalculated.antiguedad <- elapsed.months(dta$fecha_dato,dta$fecha_alta)
-dta$antiguedad <- recalculated.antiguedad
-```
-
-
-
-
-`ind_nuevo`, which indicates if  the client is new or not. When I look at how many month seniority these clients have, they all have over 3 year's seniority so I 
-
-
-`Renta` is a variable with a lot of missing values. By checking its range, I realise there is a significant rich-poor gap among Santander customers across province. 
-
+Several variables contain missing values. Some of them can be simply imputed with more frequent status or median value, while others are more complicated. For example, I find out `renta` (gross income) has abundance of missing values and varies greatly across different province, therefore instead of filling in missing values with mean or median, it’s more accurate to break it down by province and use the median of each province.
 ![image income_by_prov](Rplot.png)
 
-Again, instead of filling in missing values with mean or median, it’s more accurate to break it down by province and use the median of each province.
+
+
+`antiguedad` contains customer senoirty in months. I suspect data in this feature is inaccurate since there is a large amount of negative values in the dataset.
+```r
+    Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+-999999.0      23.0      52.0      75.6     137.0     256.0      2407 
+```
+Most client has a client-joined-date so I am able to recalulate the seniority for each client, using `fecha_alta`.
+![image seniority](seniority.png)
+
+
+
+
+
 
 `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an interesting variable, as customers who are no longer primary at end of month are likely to have different purchasing behaviours than the others. Choose to replace the missing values with the more frequent status, which is "1" in this case.
 
-`Ind_actividad_cliente`, which indicates if clients are active or not. Again, I choose to replace the missing values with the more frequent status.
 
-I decide to drop variable `cod_prov`, since province information is already saved in `nomprov`.
+To enhance visulisation readability, some new features are derived from existing variables. For example, `age_group` is created to categorise age into groups. 
 
-Address type variable `tipodom` has a few missing values too. After checking data distibution, all observatons have an address type of "1" - primary address so I simply remove the variable.
+Additionaly, there’s also abundance of character variables that contain empty values and inconsistent formats.I decide to clean the format and either fill the empty strings with the most common value or remove the variable, based on my judgement. Since the dataset is in Spanish, some factor levels are also translated into English for better readability.
 
-For the two product variables, replace the missing values with the more frequent status, which is 0.
-
-I also find out there’s also abundance of character variables that contain empty values and inconsistent formats.I decide to correct the formats, and either fill the empty strings with the most common value or remove the variable, based on my judgement.
-
-Lastly, some features are not loaded into R in the appropriate format. For example, `fecha_dato` (current date) and `fecha_alta` (client start date) are read as factor variables, so I have to convert them into Date.
+Lastly, some features are not loaded into R in the appropriate format. For example, `fecha_dato` (current date) and `fecha_alta` (client start date) are read as factor variables, so I have to convert them into dates.
 
 #### Data Limitation
 
@@ -146,7 +115,9 @@ The biggest
 ### Part 3 - Initial Findings
 ---------------------------------------
 * Product Ownership vs Age & Segment
-
+I want to start with checking the distribution of `age`.
+![image age](age.png)
+Looks like the distribution is very right skewed - Santander has an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
 ![image age by segment](age_segment2.png)
 ![image age by segment](prod_age_seg.png)
 * Foreigner 
