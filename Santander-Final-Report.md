@@ -18,9 +18,9 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 2 - Recommendations
 
-* we
+* An average Santander client is most likely to open Current account, then Direct debit, follwed by Particular account and E-account. This should always be used as a guildline when recommendating products to clients.
 
-* Santander could personalise student clients' product offering to focus on Current accout, Direct Debit, Payroll and E- account.
+* Santander could personalise student clients' product offering to focus on Current accout, Direct Debit, Payroll and E- account. If the students are under 25 years old, Junior account might also be offered.
 
 * Santander should targret VIP clients if they want to cross sell Mid-term deposit, Current account or E-account.
 
