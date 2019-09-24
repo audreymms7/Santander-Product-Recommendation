@@ -122,7 +122,7 @@ Satander's client age is bimodally distributed and very right skewed - they have
 
 ![image age](age.png)
 
-As expected, student clients are mostly in their 20's while VIP clients are usually over 50 years old. The majority regular individual clients are 40 to 60 years old. 
+As expected, student clients are mostly in their 20's while VIP clients are usually over 50 years old. The majority of regular individual clients are 40 to 60 years old. 
 
 ![image age by segment](age_segment2.png)
 
@@ -136,7 +136,7 @@ Not surprisingly, Santander's clients experience a gender income gap - as can be
 
 ![image income by gender](gender_income2.png)
 
-Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % than male clients. It's interesting to see that more male clients have `ind_tjcr_fin_ult1` credit card account than female. Overall, 
+Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. It's interesting to see that more male clients have `ind_tjcr_fin_ult1` credit card account than female. Overall, 
 
 ![image prod by gender](prod_gender.png)
 
@@ -161,11 +161,13 @@ International clients are overrepresented in age group 26~45, which indicates th
 
 #### 4.5  Product Ownership vs Acquisition Channel
 
-Santander acquires clients through a number of different channels. Below is a plot of product ownership against top seven channels. 
+Santander acquires clients through a number of different channels. Below is a plot of product ownership against top seven channels.
+![image prod by channel](prod_chan.png)
+
 It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securites). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
 Another interesting finding is `ind_ctop_fin_ult1` (Particular account) has more popularity among clients from "KAT".
+
 However, my data doesn't contain explainatons for channel abbreviations so it's hard to get intuitive insights on why these channels perform differently.
-![image prod by channel](prod_chan.png)
 
 #### 4.6  Seniority
 
@@ -183,12 +185,10 @@ perform on par
 
 ```r
 table(dta$ind_empleado)
-
 #         A      B      F      N 
-
 #        204    282    203 999311 
 ```
-![image prod for non employee](prod_nonemp.png)
+
 ![image prod for employee](prod_emp.png)
 
 
