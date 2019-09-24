@@ -126,6 +126,7 @@ As expected, student clients are mostly in their 20's while VIP clients are usua
 
 ![image age by segment](age_segment2.png)
 
+???
 
 ![image prod by age by segment](prod_age_seg.png)
 
@@ -135,28 +136,41 @@ Not surprisingly, Santander's clients experience a gender income gap - as can be
 
 ![image income by gender](gender_income2.png)
 
+Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % than male clients. It's interesting to see that more male clients have `ind_tjcr_fin_ult1` credit card account than female. Overall, 
 
 ![image prod by gender](prod_gender.png)
 
 #### 4.3 Product Ownership vs Domestic/International Client 
 
-
+Santander has around 5% international clients.
+```r
+#table(dta$indext)
+#       N      S 
+#     953659  46341 
+```
+International clients are overrepresented in age group 26~45, which indicates they are most likely foreign workers in Spain.
 ![image foreigner by age](foreigner_by_age.png)
-
+???
 
 ![image prod by foreigner](prod_foreign.png)
 
 #### 4.4 Product Ownership vs Income 
 
+
 ![image prod by income](prod_income.png)
 
 #### 4.5  Product Ownership vs Acquisition Channel
 
+Santander acquires clients through a number of different channels. Below is a plot of product ownership against top seven channels. 
+It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securites). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
+Another interesting finding is `ind_ctop_fin_ult1` (Particular account) has more popularity among clients from "KAT".
+However, my data doesn't contain explainatons for channel abbreviations so it's hard to get intuitive insights on why these channels perform differently.
 ![image prod by channel](prod_chan.png)
 
 #### 4.6  Seniority
 
 ![image prod by tenure2](prod_tenure2.png)
+perform on par 
 ![image prod by tenure1](prod_tenure1.png)
 
 #### 4.7  Single-line Client
