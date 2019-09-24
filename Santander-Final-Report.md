@@ -20,9 +20,9 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 * we
 
-* Santander has abun tudent clients
+* Santander could personalise student clients' product offering to focus on Current accout, Direct Debit, Payroll and E- account.
 
-* Santander could targret VIP clients if they want to cross sell Mid-term deposit, Current account or E-account.
+* Santander should targret VIP clients if they want to cross sell Mid-term deposit, Current account or E-account.
 
 * Affluent clients are more likely to open Home account and Securities, so the bank could provide more advertising regarding these two products.
 
