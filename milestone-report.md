@@ -121,55 +121,36 @@ One of the biggest limitations of using sampled data is I am not able to track c
 
 ### 3.1 Product Ownership vs Age & Segment
 
-Satander's client age is very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+Satander's client age is bimodally distributed and very right skewed - they have an abundance of student aged clients, and a great number of clients in their 40's and 50's. 
+
 ![image age](age.png)
 
+As expected, student clients are mostly in their 20's while VIP clients are usually over 50 years old. The majority of regular individual clients are 40 to 60 years old. 
+
 ![image age by segment](age_segment2.png)
+
+Current account is the most popular product across all client segments. For regular clients, Particular account, Direct debit and E-account are the top 4 products, along with Current account. As expected, client who are under 16 years old can only open `ind_ctju_fin_ult1` (Junior account). Most of clients age between 16 to 25 are student clients, but some of them are regular clients with Junior account. Direct debit and Payroll are the second and third popular products for student clients whereas VIP clients have a variety of products.
+
 ![image prod by age by segment](prod_age_seg.png)
 
 ### 3.2 Product Ownership vs Gender 
 
+Not surprisingly, Santander's clients experience a gender income gap - as can be seen from the graph below, females (H) are overrepresented in "Below 45k" and "45k~90k" groups, and underrepresented in high income groups.
 
-![image income by gender](gender_income.png)
 ![image income by gender](gender_income2.png)
 
-![image prod by gender](prod_income.png)
+Looking at product ownership breakdown across gender, male clients appears to have a slightly more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. 
+It's interesting to see that more male clients have `ind_tjcr_fin_ult1` (Credit card) account than female. Overall, product breakdown looks similar across gender.
+
+![image prod by gender](prod_gender.png)
 
 ### 3.3 Product Ownership vs Domestic/International Client 
 
-
-![image foreigner by age](foreigner_by_age.png)
-
-
-![image prod by foreigner](prod_foreign.png)
-
-### 3.4 Product Ownership vs Income 
-
-![image prod by income](prod_income.png)
-
-### 3.5  Product Ownership vs Acquisition Channel
-
-![image prod by channel](prod_chan.png)
-
-### 3.6  Seniority
-
-![image prod by tenure2](prod_tenure2.png)
-![image prod by tenure1](prod_tenure1.png)
-
-### 3.7  Single-line Client
-
-
-![image prod single line](prod_singleline.png)
-![image prod two line](prod_twoline.png)
-
-### 3.8  Employee
-
+Santander has around 5% international clients.
 ```r
-table(dta$ind_empleado)
-
-#         A      B      F      N 
-
-#        204    282    203 999311 
+#table(dta$indext)
+#       N      S 
+#     953659  46341 
 ```
-![image prod for non employee](prod_nonemp.png)
-![image prod for employee](prod_emp.png)
+International clients are overrepresented in age group 26~45, which indicates they are most likely foreign workers in Spain.
+![image foreigner by age](foreigner_by_age.png)
