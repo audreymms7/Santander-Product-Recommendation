@@ -256,15 +256,16 @@ prod_foreign <- dta %>%
 str(prod_foreign)
 prod_foreign2 <- prod_foreign %>% gather(Prod, Counts, ind_ahor_fin_ult1:ind_recibo_ult1)%>% 
   group_by(indext,Prod) %>%
-  summarise(sum_cnts = sum(Counts))
+  summarise(sum_cnts = sum(Counts))%>%
+  mutate(Percentage=sum_cnts/sum(sum_cnts)*100)
 
-ggplot(prod_foreign2, aes(x=Prod, y=sum_cnts, fill=indext))+
+ggplot(prod_foreign2, aes(x=Prod, y=Percentage, fill=indext))+
   geom_col()+
   facet_wrap(.~indext)+
   scale_fill_manual(values = c("skyblue","red3"))+
   ggtitle("Product ownership for domestic/foreign clients")+
   xlab("Product") +
-  ylab("Number of product") +
+  ylab("Product breakdown Percent %") +
   my_theme +
   theme(axis.text.x = element_text(size=8,angle = 90))
 
