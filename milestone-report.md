@@ -154,3 +154,14 @@ Santander has around 5% international clients.
 ```
 International clients are overrepresented in age group 26~45, which indicates they are most likely foreign workers in Spain.
 ![image foreigner by age](foreigner_by_age.png)
+
+### 3.4  Product Ownership vs Acquisition Channel
+
+Santander acquires clients through a number of different channels. Below is a plot of product ownership against top seven channels.
+
+![image prod by channel](prod_chan.png)
+
+It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (Securities). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
+Another interesting finding is `ind_ctop_fin_ult1` (Particular account) has more popularity among clients from "KAT".
+
+However, my data doesn't contain explainatons for channel abbreviations so it's hard to get intuitive insights on why these channels perform differently.
