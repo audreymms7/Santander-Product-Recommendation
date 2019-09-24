@@ -213,7 +213,14 @@ Other products that are more popular among employees include Pension account and
 
 #### 5.1 Model Selection
 
+The goal of this project is to help Santander build a recommendation system based on client demographic data, behavioural data and products (accounts) they currently own. It is a supervised classifation problem that can be tackled with Gradient Boosting Decision Tree, Random Forest, or K-nearest neighbors. I think XGBoost will be the most suitable algorithm for this project, mainly because it's faster and relatively easier to explain to business stakeholders.
+
+The idea is to build many simple decision trees, and the output of the model as a whole is then a combination of the predictions made by each of the many weak learners. Eventually for each account I need to predict the probability that customer will open it in the next month. After scoring the products from most-likely to least-likely, I would get a list of top recommended products for each client. 
+
+
 #### 5.2 Model Results
+
+Before I can implement the 
 
 ### Part 6 - Limitations and Further Study
 
@@ -221,6 +228,7 @@ Due to resource constaints, the analysis conducted in this project is based on a
 
 One of the biggest limitations of using sampled data is I am not able to track client over time. For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an important variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. For clients who are no longer primary customers at end of month, it would be interesting to compare their product owenership with previous month. Other questions that can be answered with full dataset include:
 
+* Have clients purchased any product (opened any account) during the 17 months frame? If so how long ago was the last purchase?
 * Which products are usually bought together or within short period of time?
 * What is the most common order of purchase? For example, chequing account, saving account then mortgage?
 * It costs much less to maintain and cross sell to an existing client than to acquire a new one. How long does it take to cross sell or upsell other products to clients in differnt segments? In other words, how much marketing and sales efforts should Santander expect to spend, before they become multi-line (and more profitable) clients?
