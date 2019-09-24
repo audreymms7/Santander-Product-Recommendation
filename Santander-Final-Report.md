@@ -22,15 +22,15 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 * Santander has abun tudent clients
 
-* Santander could targret VIP clients if they want to cross sell Mid-term deposit, Particular account or
+* Santander could targret VIP clients if they want to cross sell Mid-term deposit, Current account or E-account.
 
-* Affluent clients 
+* Affluent clients are more likely to open Home account and Securities, so the bank could provide more advertising regarding these two products.
 
 * Depends on the corporate strategy and goal of marketing and sales campaign, Santander should target clients from different acquisition channels. For a nurturing campaign, Santander should speicifically target clients from "KHE" and "KHQ", as most of them only have Current account and probably do not have enough knowledge about Santander's product offering. From a recommendation perspective, clients from "KAT" are more likely to open Particular account.
 
-* Clients with over 10 years of tenure are more likely to open Particular Account, Mid-term deposit and Tax account.
+* The bank could target clients with over 10 years of tenure for advertising on Particular Account, Mid-term deposit and Tax account, and target new clients within 6 months more on Short-term deposit and Mas particular account.
 
-* Employee clients
+* Employee clients are more likely to open Credit card, Securities, Pension and Payroll account.
 
 
 ### Part 3 - Data First Glance
