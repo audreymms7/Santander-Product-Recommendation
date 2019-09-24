@@ -126,7 +126,7 @@ As expected, student clients are mostly in their 20's while VIP clients are usua
 
 ![image age by segment](age_segment2.png)
 
-???
+Current account is the most popular product across all client segments. For regular clients, Particular account, Direct debit and E-account are the top 4 products, along with Current account. As expected, client who are under 16 years old can only open `ind_ctju_fin_ult1` (Junior account). Most of clients age between 16 to 25 are student clients, but some of them are regular clients with Junior account. Direct debit and Payroll are the second and third popular products for student clients whereas VIP clients have a variety of products.
 
 ![image prod by age by segment](prod_age_seg.png)
 
@@ -136,8 +136,8 @@ Not surprisingly, Santander's clients experience a gender income gap - as can be
 
 ![image income by gender](gender_income2.png)
 
-Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. 
-It's interesting to see that more male clients have `ind_tjcr_fin_ult1` (credit card) account than female. Overall, product breakdown looks similar across gender.
+Looking at product ownership breakdown across gender, male clients appears to have a slightly more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. 
+It's interesting to see that more male clients have `ind_tjcr_fin_ult1` (Credit card) account than female. Overall, product breakdown looks similar across gender.
 
 ![image prod by gender](prod_gender.png)
 
@@ -157,9 +157,9 @@ International clients are overrepresented in age group 26~45, which indicates th
 
 #### 4.4 Product Ownership vs Income 
 
-Overal, `ind_cco_fin_ult1` (current account) is the most popular product, followed by `ind_recibo_ult1` (direct debit), `ind_ctop_fin_ult1` (particular account) and `ind_ecue_fin_ult1` (e-account), regardless of income group. `ind_valo_fin_ult1` (securities) and `ind_viv_fin_ult1`(home account) are more popular among clients with over $180k household income.
+Overal, `ind_cco_fin_ult1` (current account) is the most popular product, followed by `ind_recibo_ult1` (Direct debit), `ind_ctop_fin_ult1` (Particular account) and `ind_ecue_fin_ult1` (E-account), regardless of income group. `ind_valo_fin_ult1` (Securities) and `ind_viv_fin_ult1`(Home account) are more popular among clients with over $180k household income.
 
-`ind_deme_fin_ult1`(mid-term deposit) is the preferred product across deposit product offerings. `ind_hip_fin_ult1` (mortgage) and `ind_pres_fin_ult1` (loans) are among the least popular products. I assume it's more related to Spanish's stagnated economy at the time, than Santander's product offering.
+`ind_deme_fin_ult1`(Mid-term deposit) is the preferred product across deposit product offerings. `ind_hip_fin_ult1` (Mortgage) and `ind_pres_fin_ult1` (Loans) are among the least popular products. I assume it's more related to Spanish's stagnated economy at the time, than Santander's product offering.
 
 ![image prod by income](prod_income.png)
 
@@ -169,7 +169,7 @@ Santander acquires clients through a number of different channels. Below is a pl
 
 ![image prod by channel](prod_chan.png)
 
-It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securities). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
+It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (Securities). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
 Another interesting finding is `ind_ctop_fin_ult1` (Particular account) has more popularity among clients from "KAT".
 
 However, my data doesn't contain explainatons for channel abbreviations so it's hard to get intuitive insights on why these channels perform differently.
@@ -182,13 +182,13 @@ Other than Current account, Direct debit, Payroll and E-account are the most pop
 
 ![image prod by tenure2](prod_tenure2.png)
 
-Clients with 2~5 years of tenure and 5~10 years of tenure seem to have consistent preference against products. However, after clients have been banking with Santander for 10 years, Particular account all of sudden gains popularity and becomes the second most owned product for clients. Mid-term deposits and Tax also become quite popular.
+Clients with 2 to 5 years of tenure and 5 to 10 years of tenure seem to have consistent preference against products. However, after clients have been banking with Santander for 10 years, Particular account all of sudden gains popularity and becomes the second most owned product for clients. Mid-term deposits and Tax also become quite popular.
 
 ![image prod by tenure1](prod_tenure1.png)
 
 #### 4.7  Number of Product
 
-Looking at total number of product clients have, it seems like most VIP clients are acquired through Mid-term deposit product, and open Current account and E-account later. Students are mostly single-line clients, but some of them also open Direct debit, E-account and Payroll. A large portion of regualr clients are multi-line clients.
+Looking at total number of product clients have, it seems like most VIP clients are acquired through Mid-term deposit product, and open Current account and E-account later. Similiar to what's observed before, students are mostly single-line clients, but some of them also open Direct debit, E-account and Payroll. A large portion of regualr clients are multi-line clients.
 
 ![image prod single line](prod_singleline.png)
 ![image prod two line](prod_twoline.png)
