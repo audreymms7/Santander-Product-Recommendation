@@ -20,11 +20,17 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 * we
 
-* Santander has abuntudent clients
+* Santander has abun tudent clients
 
 * VIP clients
 
 * Affluent clients 
+
+* Depends on the corporate strategy and goal of marketing and sales campaign, Santander should target clients from different acquisition channels. For a nurturing campaign, Santander should speicifically target clients from "KHE" and "KHQ", as most of them only have Current account and probably do not have enough knowledge about Santander's product offering. From a recommendation perspective, clients from "KAT" are more likely to open Particular account.
+
+* Clients with over 10 years of tenure are more likely to open Particular Account, Mid-term deposit and Tax account.
+
+* Employee clients
 
 
 ### Part 3 - Data First Glance
