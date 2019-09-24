@@ -136,7 +136,8 @@ Not surprisingly, Santander's clients experience a gender income gap - as can be
 
 ![image income by gender](gender_income2.png)
 
-Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. It's interesting to see that more male clients have `ind_tjcr_fin_ult1` credit card account than female. Overall, 
+Looking at product ownership breakdown across gender, male clients appears to have a more diverse portfolio. 60% of female clients have a current account, 10 % more than male clients. 
+It's interesting to see that more male clients have `ind_tjcr_fin_ult1` (credit card) account than female. Overall, product breakdown looks similar across gender.
 
 ![image prod by gender](prod_gender.png)
 
@@ -162,6 +163,7 @@ International clients are overrepresented in age group 26~45, which indicates th
 #### 4.5  Product Ownership vs Acquisition Channel
 
 Santander acquires clients through a number of different channels. Below is a plot of product ownership against top seven channels.
+
 ![image prod by channel](prod_chan.png)
 
 It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securites). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
@@ -183,11 +185,17 @@ perform on par
 
 #### 4.8  Employee
 
+Some of Santander's clients have an employee status (A active, B ex employed or F filial).
 ```r
 table(dta$ind_empleado)
 #         A      B      F      N 
 #        204    282    203 999311 
 ```
+As can be depicted from the graph below, even it is a very small group of clients, employees have a clearly different product preference, compared to non-employee clients (N). Only 10% of active employee (A) have current account, compared to 50% in non-employee group. `ind_tjcr_fin_ult1` (credit card) and `ind_valo_fin_ult1`(securities) are among top five most popular products for employees. Roughly 10% of employees own `ind_tjcr_fin_ult1` (credit card), whereas only 3% of non-employees have it. 
+
+Other products that are more popular among employees include pension account and payroll account.
+
+
 
 ![image prod for employee](prod_emp.png)
 
