@@ -18,6 +18,11 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 2 - Recommendations
 
+1. we
+
+2. sdf
+
+3. wrr
 
 
 ### Part 3 - Data First Glance
@@ -149,9 +154,9 @@ Santander has around 5% international clients.
 #       N      S 
 #     953659  46341 
 ```
-International clients are overrepresented in age group 26~45, which indicates they are most likely foreign workers in Spain.
+International clients (S) are overrepresented in age group 26~45, which indicates they are most likely foreign workers in Spain.
 ![image foreigner by age](foreigner_by_age.png)
-???
+Below graph shows that there is no distinct difference in terms of product preference between domestic and international clients.
 
 ![image prod by foreigner](prod_foreign.png)
 
@@ -218,15 +223,17 @@ The goal of this project is to help Santander build a recommendation system base
 The idea is to build many simple decision trees, and the output of the model as a whole is then a combination of the predictions made by each of the many weak learners. Eventually for each account I need to predict the probability that customer will open it in the next month. After scoring the products from most-likely to least-likely, I would get a list of top recommended products for each client. 
 
 
-#### 5.2 Model Results
+#### 5.2 Model Building
 
-Before I can implement the 
+I will build the model using all available features mentioned before, and run the model multiple times with different seeds to stablise the predictions. The model can then be validated against June 2016 data. 
 
 ### Part 6 - Limitations and Further Study
 
 Due to resource constaints, the analysis conducted in this project is based on a stratified random sampled dataset. In other words, the data is incomplete. While it is very reasonable to assume seasonality in financial service industry and pay closer attention to May and June data, taking a random sample still loses a substantial part of the data and limits its usability.
 
-One of the biggest limitations of using sampled data is I am not able to track client over time. For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an important variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. For clients who are no longer primary customers at end of month, it would be interesting to compare their product owenership with previous month. Other questions that can be answered with full dataset include:
+One of the biggest limitations of using sampled data is I am not able to track client over time. For example, `Indrel` indicates whether clients are still primary customers (1), or no longer primary customers at end of month (99). It seems to be an important variable, as customers who are no longer primary at end of month are likely to have had different purchasing behaviours than the others. For clients who are no longer primary customers at end of month, it would be interesting to compare their product owenership with previous month.
+
+I also expect the model to predict much better with full training dataset. Other questions that can be answered with full dataset include:
 
 * Have clients purchased any product (opened any account) during the 17 months frame? If so how long ago was the last purchase?
 * Which products are usually bought together or within short period of time?
