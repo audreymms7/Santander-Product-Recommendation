@@ -22,7 +22,7 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 * Santander has abun tudent clients
 
-* VIP clients
+* Santander could targret VIP clients if they want to cross sell Mid-term deposit, Particular account or
 
 * Affluent clients 
 
