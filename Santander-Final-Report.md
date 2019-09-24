@@ -157,6 +157,9 @@ International clients are overrepresented in age group 26~45, which indicates th
 
 #### 4.4 Product Ownership vs Income 
 
+Overal, `ind_cco_fin_ult1` (current account) is the most popular product, followed by `ind_recibo_ult1` (direct debit), `ind_ctop_fin_ult1` (particular account) and `ind_ecue_fin_ult1` (e-account), regardless of income group. `ind_valo_fin_ult1` (securities) and `ind_viv_fin_ult1`(home account) are more popular among clients with over $180k household income.
+
+`ind_deme_fin_ult1`(mid-term deposit) is the preferred product across deposit product offerings. `ind_hip_fin_ult1` (mortgage) and `ind_pres_fin_ult1` (loans) are among the least popular products. I assume it's more related to Spanish's stagnated economy at the time, than Santander's product offering.
 
 ![image prod by income](prod_income.png)
 
@@ -166,19 +169,26 @@ Santander acquires clients through a number of different channels. Below is a pl
 
 ![image prod by channel](prod_chan.png)
 
-It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securites). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
+It can be depicted that even "KHE" is the most popular channel, clients acquired through it mostly only have one product - current account. In contrast, clients acquired through "KFA" own a wide variety of products, including `ind_valo_fin_ult1` (securities). `ind_ecue_fin_ult1` (E-account) is also more popular among clients acquired throught "KFA", compared to other groups of clients.
 Another interesting finding is `ind_ctop_fin_ult1` (Particular account) has more popularity among clients from "KAT".
 
 However, my data doesn't contain explainatons for channel abbreviations so it's hard to get intuitive insights on why these channels perform differently.
 
 #### 4.6  Seniority
 
+Based on seniority, I create a new tenure variable and plot product ownership trends as client tenure increases. `Ind_nuevo` indicates if client is acquired within six months or not.
+
+Other than Current account, Direct debit, Payroll and E-account are the most popular products for clients with less than 2 years tenure. To my surprise, only new clients acquired within six months have `ind_deco_fin_ult1` (Short-term deposits) and `ind_ctma_fin_ult1` (Mas particular account). These products might have some features that specifically satisfy new clients' needs.
+
 ![image prod by tenure2](prod_tenure2.png)
-perform on par 
+
+Clients with 2~5 years of tenure and 5~10 years of tenure seem to have consistent preference against products. However, after clients have been banking with Santander for 10 years, Particular account all of sudden gains popularity and becomes the second most owned product for clients. Mid-term deposits and Tax also become quite popular.
+
 ![image prod by tenure1](prod_tenure1.png)
 
-#### 4.7  Single-line Client
+#### 4.7  Number of Product
 
+Looking at total number of product clients have, it seems like most VIP clients are acquired through Mid-term deposit product, and open Current account and E-account later. Students are mostly single-line clients, but some of them also open Direct debit, E-account and Payroll. A large portion of regualr clients are multi-line clients.
 
 ![image prod single line](prod_singleline.png)
 ![image prod two line](prod_twoline.png)
@@ -191,11 +201,9 @@ table(dta$ind_empleado)
 #         A      B      F      N 
 #        204    282    203 999311 
 ```
-As can be depicted from the graph below, even it is a very small group of clients, employees have a clearly different product preference, compared to non-employee clients (N). Only 10% of active employee (A) have current account, compared to 50% in non-employee group. `ind_tjcr_fin_ult1` (credit card) and `ind_valo_fin_ult1`(securities) are among top five most popular products for employees. Roughly 10% of employees own `ind_tjcr_fin_ult1` (credit card), whereas only 3% of non-employees have it. 
+As can be depicted from the graph below, even it is a very small group of clients, employees have a clearly different product preference, compared to non-employee clients (N). Only 10% of active employee (A) have Current account, compared to 50% in non-employee group. `ind_tjcr_fin_ult1` (Credit card) and `ind_valo_fin_ult1`(Securities) are among top five most popular products for employees. Roughly 10% of employees own `ind_tjcr_fin_ult1` (Credit card), whereas only 3% of non-employees have it. 
 
-Other products that are more popular among employees include pension account and payroll account.
-
-
+Other products that are more popular among employees include Pension account and Payroll account.
 
 ![image prod for employee](prod_emp.png)
 
