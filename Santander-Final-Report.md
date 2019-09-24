@@ -18,11 +18,13 @@ Data used in this project is available on [Kaggle](https://www.kaggle.com/c/sant
 
 ### Part 2 - Recommendations
 
-1. we
+* we
 
-2. sdf
+* Santander has abuntudent clients
 
-3. wrr
+* VIP clients
+
+* Affluent clients 
 
 
 ### Part 3 - Data First Glance
